@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {BehaviorSubject, merge, of} from 'rxjs';
-import {map, shareReplay, switchMap, tap} from 'rxjs/operators';
+import {BehaviorSubject, of} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
+import {AppService} from '../app.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
     private readonly api = environment.api;
 
     private refreshTokenInProgress = false;
-    private _token = new BehaviorSubject(undefined);
+    private _token = new BehaviorSubject(null);
     readonly token$ = this._token.asObservable().pipe(
         map(token => {
             if (this.isExpired(token) && !!localStorage.getItem('_auth')) {
@@ -23,22 +24,21 @@ export class AuthService {
         })
     );
 
-    private readonly _authState$ = this.token$.pipe(
-        switchMap(token => token ? this.http.get<any>(`${this.api}/authState`) : of(token)),
-        shareReplay(1),
-        tap(user => this._currentUser.next(user))
-    );
-
     private _currentUser = new BehaviorSubject(undefined);
-
-    readonly currentUser$ = merge(
-        this._authState$,
-        this._currentUser
-    );
 
     redirectUrl: string;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, public app: AppService) {}
+
+    get currentUser$() {
+        if (this._currentUser.value === undefined) {
+            console.log('CURRENT USER CREATED');
+            this.token$.pipe(
+                switchMap(token => token ? this.http.get<any>(`${this.api}/authState`) : of(token)),
+            ).subscribe(user => this._currentUser.next(user || null));
+        }
+        return this._currentUser.asObservable();
+    }
 
     private refreshToken() {
         if (localStorage.getItem('_auth') && !this.refreshTokenInProgress) {
@@ -61,7 +61,7 @@ export class AuthService {
     }
 
     private removeTokens() {
-        console.log('remove tokens');
+        console.log('TOKENS REMOVED');
         localStorage.removeItem('_auth');
         this._token.next(null);
     }

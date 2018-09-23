@@ -8,16 +8,17 @@ import {
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatFormFieldModule, MatInputModule
+    MatFormFieldModule, MatInputModule, MatSnackBarModule, MatProgressBarModule, MatProgressSpinnerModule, MatMenuModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
+import {SafeUrlPipe} from './safe-url.pipe';
 
 @NgModule({
     imports: [
         CommonModule,
     ],
-    declarations: [],
+    declarations: [SafeUrlPipe],
     exports: [
         FlexLayoutModule,
         FormsModule,
@@ -31,6 +32,11 @@ import {FormsModule} from '@angular/forms';
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSnackBarModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatMenuModule,
+        SafeUrlPipe
     ]
 })
 export class SharedModule {

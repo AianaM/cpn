@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RealtyService} from '../realty/realty.service';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+    constructor(private realty: RealtyService) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.realty.getRealty().subscribe();
+    }
 
 }

@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
     user = {
         username: null,
@@ -15,12 +16,13 @@ export class LoginComponent implements OnInit {
     };
 
     hide = true;
+    currentUser: Subscription;
 
     constructor(private auth: AuthService, private router: Router) {
     }
 
     ngOnInit() {
-        this.auth.currentUser$.subscribe(user => {
+        this.currentUser = this.auth.currentUser$.subscribe(user => {
             if (user) {
                 if (this.auth.redirectUrl && this.auth.redirectUrl.match(/tools:form/gi)) {
                     const path = this.auth.redirectUrl.replace(/(^\/)|(\(.+$)/gi, '');
@@ -34,6 +36,10 @@ export class LoginComponent implements OnInit {
                 this.router.navigate([this.auth.redirectUrl || '/user']);
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.currentUser.unsubscribe();
     }
 
     login() {

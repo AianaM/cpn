@@ -16,7 +16,6 @@ export class IndexComponent implements OnInit {
     ngOnInit() {
         this.auth.currentUser$.subscribe(user => {
             this.currentUser = user;
-            console.log(user);
         });
     }
 

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
+import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse} from '@angular/common/http';
 
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {AuthService} from './auth.service';
-import {filter, first, switchMap} from 'rxjs/operators';
+import {catchError, filter, finalize, first, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -12,7 +12,7 @@ export class ApiInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+        this.auth.app.setLoad(true);
         return this.auth.token$.pipe(
             filter(token => token !== undefined || req.url.includes('login_check') || req.url.includes('token/refresh')),
             first(),
@@ -24,7 +24,29 @@ export class ApiInterceptor implements HttpInterceptor {
                         }
                     });
                 }
+                if (req.url.match(/media_objects/gi) && req.method === 'POST') {
+                    req = req.clone({
+                        setHeaders: {
+                            'Content-Type': 'application/ld+json'
+                        }
+                    });
+                }
                 return next.handle(req);
+            }),
+            catchError(error => {
+                if (error.error instanceof ErrorEvent) {
+                    throwError('An error occurred:', error.error.message);
+                } else {
+                    if ((<HttpErrorResponse>error).status === 401) {
+                        this.auth.app.openSnackBar('Доступ запрещен');
+                    }
+                }
+                this.auth.app.openSnackBar(error.error['hydra:description'] || 'Произошла ошибка, обратитесь к администратору');
+
+                return throwError('Something bad happened; please try again later.');
+            }),
+            finalize(() => {
+                this.auth.app.setLoad(false);
             })
         );
     }
