@@ -6,6 +6,7 @@ const routes: Routes = [
     {path: '', component: IndexComponent},
     {path: 'user', loadChildren: './user/user.module#UserModule'},
     {path: 'login', redirectTo: '/user/login', pathMatch: 'full'},
+    {path: 'registration', redirectTo: '/user/registration', pathMatch: 'full'},
     {path: '**', redirectTo: '/'}
 ];
 

@@ -1,0 +1,31 @@
+<form (ngSubmit)="onSubmit()" #regForm="ngForm">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="column">
+      <h1>Регистрация</h1>
+      <mat-form-field>
+        <input matInput placeholder="Имя" [(ngModel)]="user.name.firstName" name="name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Фамилия" [(ngModel)]="user.name.lastName" name="name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="user.email" name="email" required type="email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+               [(ngModel)]="user.password" name="password" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button type="button" routerLink="/login">Войти</button>
+        <button mat-button color="accent" type="submit" [disabled]="!regForm.form.valid" fxFlexAlign="end">
+          Готово!
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

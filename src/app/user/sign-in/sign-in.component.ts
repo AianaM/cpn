@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class SignInComponent implements OnInit, OnDestroy {
 
     user = {
         username: null,
@@ -45,5 +45,4 @@ export class LoginComponent implements OnInit, OnDestroy {
     login() {
         this.auth.login(this.user);
     }
-
 }
