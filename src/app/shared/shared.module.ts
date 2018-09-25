@@ -21,6 +21,9 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
 import {SafeUrlPipe} from './safe-url.pipe';
 import {PhoneFormComponent} from './phone-form/phone-form.component';
+import { TeamCardComponent } from './team-card/team-card.component';
+import { PhoneComponent } from './phone/phone.component';
+import { UserCardComponent } from './user-card/user-card.component';
 
 @NgModule({
     imports: [
@@ -32,9 +35,10 @@ import {PhoneFormComponent} from './phone-form/phone-form.component';
         MatSelectModule,
         MatCheckboxModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        MatCardModule
     ],
-    declarations: [SafeUrlPipe, PhoneFormComponent],
+    declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent],
     exports: [
         FlexLayoutModule,
         FormsModule,
@@ -55,7 +59,10 @@ import {PhoneFormComponent} from './phone-form/phone-form.component';
         MatSelectModule,
         MatCheckboxModule,
         SafeUrlPipe,
-        PhoneFormComponent
+        PhoneFormComponent,
+        TeamCardComponent,
+        PhoneComponent,
+        UserCardComponent
     ]
 })
 export class SharedModule {

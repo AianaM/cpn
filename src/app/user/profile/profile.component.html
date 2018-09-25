@@ -41,17 +41,16 @@
                             </mat-icon>
                         </button>
                     </app-roles-form>
-                    <pre>{{userForm.value | json}}</pre>
                 </ng-container>
             </form>
             <ng-template #showProfile>
-                {{user.name.firstName}} {{user.name.lastName}}
+                <app-phone [phone]="user.name.phone"></app-phone>
+                <app-team-card [teamCard]="user.teamCard" *ngIf="user.roles.includes('ROLE_TEAMMATE')"></app-team-card>
             </ng-template>
-            <pre>{{editProfile | json}}</pre>
         </mat-card-content>
         <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
             <ng-template #showFormAction>
-                <button mat-button>LIKE</button>
+                <span></span>
                 <button mat-button (click)="editProfileToggle()">Изменить</button>
             </ng-template>
             <ng-container *ngIf="editProfile; else showFormAction">
