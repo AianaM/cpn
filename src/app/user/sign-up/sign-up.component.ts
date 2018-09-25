@@ -23,22 +23,22 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     currentUser: Subscription;
 
-    constructor(private auth: UserService, private router: Router) {
+    constructor(private userService: UserService, private router: Router) {
     }
 
     ngOnInit() {
-        this.currentUser = this.auth.currentUser$.subscribe(user => {
+        this.currentUser = this.userService.currentUser$.subscribe(user => {
             if (user) {
-                if (this.auth.redirectUrl && this.auth.redirectUrl.match(/tools:form/gi)) {
-                    const path = this.auth.redirectUrl.replace(/(^\/)|(\(.+$)/gi, '');
-                    const id = this.auth.redirectUrl.replace(/(^.+form\/)|\)$/gi, '');
+                if (this.userService.redirectUrl && this.userService.redirectUrl.match(/tools:form/gi)) {
+                    const path = this.userService.redirectUrl.replace(/(^\/)|(\(.+$)/gi, '');
+                    const id = this.userService.redirectUrl.replace(/(^.+form\/)|\)$/gi, '');
 
                     this.router.navigate([`/${path || 'realty'}`]).then(() => {
                         this.router.navigate([{outlets: {tools: ['form', id]}}]);
                     });
                     return;
                 }
-                this.router.navigate([this.auth.redirectUrl || '/user']);
+                this.router.navigate([this.userService.redirectUrl || '/user']);
             }
         });
     }
@@ -48,7 +48,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        this.auth.registration(this.user);
+        this.userService.registration(this.user);
     }
 
 }

@@ -1,0 +1,12 @@
+<ng-container *ngIf="name" ngModelGroup="name" #userNameGroup="ngModelGroup">
+    <ng-content></ng-content>
+    <div fxLayout="row wrap" fxLayoutGap="10px">
+        <mat-form-field>
+            <input matInput placeholder="Имя" [(ngModel)]="name.firstName" name="firstName">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Фамилия" [(ngModel)]="name.lastName" name="lastName">
+        </mat-form-field>
+    </div>
+    <app-phone-form [phone]="name.phone"></app-phone-form>
+</ng-container>

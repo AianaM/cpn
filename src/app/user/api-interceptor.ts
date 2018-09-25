@@ -24,7 +24,7 @@ export class ApiInterceptor implements HttpInterceptor {
                         }
                     });
                 }
-                if (req.url.match(/media_objects/gi) && req.method === 'POST') {
+                if (!(req.url.match(/media_objects/gi) && req.method === 'POST')) {
                     req = req.clone({
                         setHeaders: {
                             'Content-Type': 'application/ld+json'

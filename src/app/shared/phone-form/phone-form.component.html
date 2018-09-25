@@ -1,0 +1,47 @@
+<div ngModelGroup="phone" #phoneGroup="ngModelGroup" fxLayout="column">
+    <div *ngFor="let item of phone; index as index; trackBy: trackByIndex;" fxLayout="row"
+         fxLayoutAlign="start stretch">
+
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px" [ngModelGroup]="index">
+            <mat-form-field>
+                <input matInput placeholder="Номер телефона" [(ngModel)]="item.number" name="number"
+                       pattern="^(^\+7|7|8)?(\(|\s)?9[\d]{2}(\)|\s)?(([\d](\-|\s)?[\d]{3}(\-|\s)?[\d]{3}$)|([\d]{3}(\-|\s)?[\d]{2}(\-|\s)?[\d]{2})$)$"
+                       required>
+                <mat-error>11 цифр, как +7(914)2-725-420</mat-error>
+            </mat-form-field>
+
+            <div fxLayout="column">
+                <mat-form-field>
+                    <mat-select placeholder="Тип" [(ngModel)]="item.type" name="type">
+                        <mat-option *ngFor="let type of phoneTypes" [value]="type">{{ type }}</mat-option>
+                        <mat-option
+                                *ngIf="item.type && !phoneTypes.includes(item.type)"
+                                [value]="item.type">{{ item.type }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field
+                        *ngIf="item.type && (!phoneTypes.includes(item.type) || item.type == 'Другой')">
+                    <input matInput placeholder="Другой"
+                           [value]="!phoneTypes.includes(item.type) ? item.type : null"
+                           (keyup)="item.type = other.value" (blur)="phoneTypes.push(other.value)"
+                           #other>
+                </mat-form-field>
+            </div>
+
+            <mat-checkbox [(ngModel)]="item.whatsApp" name="whatsApp">WhatsApp на этом номере
+            </mat-checkbox>
+        </div>
+
+        <button mat-icon-button fxFlexAlign="start" (click)="removePhone(index)" type="button">
+            <mat-icon>delete</mat-icon>
+        </button>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-icon-button (click)="addPhone()" type="button">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

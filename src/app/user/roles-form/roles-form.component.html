@@ -1,0 +1,40 @@
+<ng-container *ngIf="userRoles">
+    <mat-form-field>
+        <mat-select placeholder="Toppings" [ngModel]="userRoles" (valueChange)="onUserRolesChange($event)" name="roles"
+                    multiple #rolesField>
+            <mat-option *ngFor="let item of roles" [value]="item.role" [disabled]="item.disabled">{{item.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="userRoles && userRoles.includes('ROLE_TEAMMATE')">
+        <h4>Карточка сотрудника</h4>
+        <div ngModelGroup="teamCard" #teammateGroup="ngModelGroup">
+            <ng-content></ng-content>
+            <div fxLayout="row wrap" fxLayoutGap="10px">
+                <mat-form-field>
+                    <input matInput placeholder="Имя сотрудника" [(ngModel)]="teamCard.firstName" name="firstName"
+                           required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Фамилия сотрудника" [(ngModel)]="teamCard.lastName" name="lastName"
+                           required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Email" [(ngModel)]="teamCard.email" name="email">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start end">
+                <mat-form-field>
+                    <mat-select placeholder="Отдел" [(ngModel)]="teamCard.team" name="team">
+                        <mat-option *ngFor="let team of teams" [value]="team"> {{ team }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="Должность сотрудника" [(ngModel)]="teamCard.role"
+                              name="role"></textarea>
+                </mat-form-field>
+            </div>
+            <app-phone-form [phone]="teamCard.phone"></app-phone-form>
+        </div>
+    </div>
+</ng-container>

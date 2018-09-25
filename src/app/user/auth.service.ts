@@ -5,6 +5,7 @@ import {BehaviorSubject, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
 import {AppService} from '../app.service';
+import {User} from './user';
 
 @Injectable({
     providedIn: 'root'
@@ -24,11 +25,12 @@ export class AuthService {
         })
     );
 
-    private _currentUser = new BehaviorSubject(undefined);
+    private _currentUser = new BehaviorSubject<User>(undefined);
 
     redirectUrl: string;
 
-    constructor(private http: HttpClient, public app: AppService) {}
+    constructor(private http: HttpClient, public app: AppService) {
+    }
 
     get currentUser$() {
         if (this._currentUser.value === undefined) {
@@ -82,6 +84,12 @@ export class AuthService {
 
     logout() {
         this.http.get(`${this.api}/logout`).subscribe(() => this.removeTokens());
+    }
+
+    updateCurrentUser(_id: string) {
+        if (_id && _id === this._currentUser.value['@id']) {
+            this._token.next(this._token.value);
+        }
     }
 
 }

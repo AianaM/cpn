@@ -1,3 +1,66 @@
-<p>
-  profile works!
-</p>
+<div fxFlex="600px" fxFlex.xs="100" style="margin: auto;" *ngIf="user">
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar>
+                <mat-icon>
+                    <img [src]="user.photo.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
+                         style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0;">
+                </mat-icon>
+            </div>
+            <mat-card-title>{{user.email}}</mat-card-title>
+            <mat-card-subtitle>
+                <p>{{user.name.lastName}} {{user.name.firstName}}</p>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form #userForm="ngForm">
+                <ng-container *ngIf="editProfile; else showProfile">
+                    <app-user-form [name]="editProfile.name" *ngIf="(auth | async).id === user.id">
+                        <div fxHide>
+                            <label for="avatar">Изменить фото</label>
+                            <input type="file" id="avatar" (change)="uploadAvatar($event)" #avatarUpl>
+                        </div>
+                        <button mat-icon-button type="button" (click)="avatarUpl.click()">
+                            <mat-icon>
+                                <img [src]="editProfile.photo.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
+                                     style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0;">
+                            </mat-icon>
+                        </button>
+                    </app-user-form>
+                    <app-roles-form [(userRoles)]="editProfile.roles" [teamCard]="editProfile.teamCard"
+                                    *ngIf="(auth | async).roles.includes('ROLE_ADMIN')">
+                        <div fxHide>
+                            <label for="photo">Изменить фото</label>
+                            <input type="file" id="photo" (change)="uploadPhoto($event)" #photoUpl>
+                        </div>
+                        <button mat-icon-button type="button" (click)="photoUpl.click()">
+                            <mat-icon>
+                                <img [src]="editProfile.teamCard.photo.links.squared_thumbnail_64 | safeResourceUrl"
+                                     width="43px"
+                                     style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0;">
+                            </mat-icon>
+                        </button>
+                    </app-roles-form>
+                    <pre>{{userForm.value | json}}</pre>
+                </ng-container>
+            </form>
+            <ng-template #showProfile>
+                {{user.name.firstName}} {{user.name.lastName}}
+            </ng-template>
+            <pre>{{editProfile | json}}</pre>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <ng-template #showFormAction>
+                <button mat-button>LIKE</button>
+                <button mat-button (click)="editProfileToggle()">Изменить</button>
+            </ng-template>
+            <ng-container *ngIf="editProfile; else showFormAction">
+                <button mat-button (click)="editProfileToggle()">Отмена</button>
+                <button mat-button (click)="onSubmit()"
+                        [disabled]="(userForm.controls['teamCard'] && !userForm.controls['teamCard'].valid)">
+                    Сохранить
+                </button>
+            </ng-container>
+        </mat-card-actions>
+    </mat-card>
+</div>

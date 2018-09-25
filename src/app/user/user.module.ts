@@ -7,13 +7,15 @@ import {SharedModule} from '../shared/shared.module';
 import {ProfileComponent} from './profile/profile.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
+import { UserFormComponent } from './user-form/user-form.component';
+import { RolesFormComponent } from './roles-form/roles-form.component';
 
 @NgModule({
     imports: [
         CommonModule,
         UserRoutingModule, SharedModule
     ],
-    declarations: [IndexComponent, ProfileComponent, SignInComponent, SignUpComponent]
+    declarations: [IndexComponent, ProfileComponent, SignInComponent, SignUpComponent, UserFormComponent, RolesFormComponent]
 })
 export class UserModule {
 }

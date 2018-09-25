@@ -5,12 +5,14 @@ import {AuthGuard} from './auth.guard';
 import {ProfileComponent} from './profile/profile.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
+import {ManagerGuard} from './manager.guard';
 
 const routes: Routes = [
     {path: '', component: IndexComponent, canActivate: [AuthGuard]},
     {path: 'login', component: SignInComponent},
     {path: 'registration', component: SignUpComponent},
-    {path: 'profile/:id', component: ProfileComponent}
+    {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    {path: 'profile/:id', component: ProfileComponent, canActivate: [ManagerGuard]}
 ];
 
 @NgModule({
