@@ -15,7 +15,7 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule, MatTabsModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
@@ -60,6 +60,7 @@ import {LogoComponent} from './logo/logo.component';
         MatMenuModule,
         MatSelectModule,
         MatCheckboxModule,
+        MatTabsModule,
         SafeUrlPipe,
         PhoneFormComponent,
         TeamCardComponent,

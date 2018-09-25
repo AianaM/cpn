@@ -1,4 +1,13 @@
 <mat-progress-bar *ngIf="loadState$ | async" mode="indeterminate" color="accent"></mat-progress-bar>
+<!--<button mat-fab class="sideToggleBtn" [class.close]="!side.opened" [class.open]="side.opened"-->
+        <!--[routerLink]="[{ outlets: { side: side.opened ? null : ['show'] } }]">-->
+    <!--<mat-icon>{{side.opened ? 'arrow_right' : 'arrow_left'}}</mat-icon>-->
+<!--</button>-->
+<button mat-icon-button [routerLink]="[{ outlets: { side: null } }]"
+        *ngIf="side.opened" class="sideCloseBtn">
+    <mat-icon>close</mat-icon>
+</button>
+
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav
             #drawer
@@ -17,15 +26,11 @@
             <a mat-list-item routerLink="/error">error</a>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav #tools position="end" [class.tools]="!(isHandset$ | async)" fixedInViewport="true"
+    <mat-sidenav #side position="end" [class.sideFull]="isHandset$ | async" [class.side]="!(isHandset$ | async)"
+                 fixedInViewport="true"
                  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" class="mat-elevation-z6"
                  [mode]="(isHandset$ | async) ? 'over' : 'side'" (openedChange)="onToolsOpenedChange($event)">
-        <mat-toolbar color="accent" fxLayout="row" fxLayoutAlign="start end">
-            <button mat-icon-button (click)="tools.close()" fxFlexAlign="center">
-                <mat-icon>arrow_right</mat-icon>
-            </button>
-        </mat-toolbar>
-        tools
+        <router-outlet name="side" (activate)='side.open()' (deactivate)='side.close()'></router-outlet>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
@@ -42,10 +47,9 @@
             </button>
             <span fxFlex></span>
             <ng-container *ngTemplateOutlet="userNav"></ng-container>
-            <button mat-icon-button (click)="tools.open()" color="accent">
+            <button mat-icon-button [routerLink]="[{ outlets: { side: ['show'] } }]" color="accent">
                 <mat-icon>arrow_left</mat-icon>
             </button>
-
         </mat-toolbar>
         <ng-content></ng-content>
     </mat-sidenav-content>

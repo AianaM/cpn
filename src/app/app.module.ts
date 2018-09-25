@@ -9,10 +9,11 @@ import {NavComponent} from './nav/nav.component';
 import {IndexComponent} from './index/index.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiInterceptor} from './user/api-interceptor';
+import { SideComponent } from './side/side.component';
 
 @NgModule({
     declarations: [
-        AppComponent, NavComponent, IndexComponent
+        AppComponent, NavComponent, IndexComponent, SideComponent
     ],
     imports: [
         BrowserModule,
