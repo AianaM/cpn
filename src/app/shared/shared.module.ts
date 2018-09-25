@@ -24,6 +24,7 @@ import {PhoneFormComponent} from './phone-form/phone-form.component';
 import { TeamCardComponent } from './team-card/team-card.component';
 import { PhoneComponent } from './phone/phone.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import {LogoComponent} from './logo/logo.component';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { UserCardComponent } from './user-card/user-card.component';
         MatButtonModule,
         MatCardModule
     ],
-    declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent],
+    declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
+    LogoComponent],
     exports: [
         FlexLayoutModule,
         FormsModule,
@@ -62,7 +64,8 @@ import { UserCardComponent } from './user-card/user-card.component';
         PhoneFormComponent,
         TeamCardComponent,
         PhoneComponent,
-        UserCardComponent
+        UserCardComponent,
+        LogoComponent
     ]
 })
 export class SharedModule {

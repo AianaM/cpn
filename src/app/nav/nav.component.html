@@ -17,6 +17,16 @@
             <a mat-list-item routerLink="/error">error</a>
         </mat-nav-list>
     </mat-sidenav>
+    <mat-sidenav #tools position="end" [class.tools]="!(isHandset$ | async)" fixedInViewport="true"
+                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" class="mat-elevation-z6"
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'" (openedChange)="onToolsOpenedChange($event)">
+        <mat-toolbar color="accent" fxLayout="row" fxLayoutAlign="start end">
+            <button mat-icon-button (click)="tools.close()" fxFlexAlign="center">
+                <mat-icon>arrow_right</mat-icon>
+            </button>
+        </mat-toolbar>
+        tools
+    </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
             <button
@@ -27,9 +37,15 @@
                     *ngIf="isHandset$ | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            CPN
+            <button mat-button routerLink="/" class="logoBtn" [class.full]="!(isHandset$ | async)">
+                <app-logo [color]="'white'" [full]="!(isHandset$ | async)"></app-logo>
+            </button>
             <span fxFlex></span>
             <ng-container *ngTemplateOutlet="userNav"></ng-container>
+            <button mat-icon-button (click)="tools.open()" color="accent">
+                <mat-icon>arrow_left</mat-icon>
+            </button>
+
         </mat-toolbar>
         <ng-content></ng-content>
     </mat-sidenav-content>
