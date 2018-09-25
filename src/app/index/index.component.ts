@@ -12,7 +12,7 @@ export class IndexComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.realty.getRealty().subscribe();
+        // this.realty.getRealty().subscribe();
     }
 
 }

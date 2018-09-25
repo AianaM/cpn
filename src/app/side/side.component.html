@@ -1,4 +1,6 @@
 <mat-tab-group backgroundColor="accent" class="side" [selectedIndex]="selected" (selectedIndexChange)="selected = $event">
-    <mat-tab label="Новости"> Content 1</mat-tab>
-    <mat-tab label="Быстрый просмотр"> Content 2</mat-tab>
+    <mat-tab label="Новости"> ТУТ БУДУТ НОВОСТИ ИЗ ИНСТАГРАМА </mat-tab>
+    <mat-tab label="Быстрый просмотр" *ngIf="(realty$ | async) as realty">
+        <pre>{{realty | json}}</pre>
+    </mat-tab>
 </mat-tab-group>

@@ -1,8 +1,4 @@
 <mat-progress-bar *ngIf="loadState$ | async" mode="indeterminate" color="accent"></mat-progress-bar>
-<!--<button mat-fab class="sideToggleBtn" [class.close]="!side.opened" [class.open]="side.opened"-->
-        <!--[routerLink]="[{ outlets: { side: side.opened ? null : ['show'] } }]">-->
-    <!--<mat-icon>{{side.opened ? 'arrow_right' : 'arrow_left'}}</mat-icon>-->
-<!--</button>-->
 <button mat-icon-button [routerLink]="[{ outlets: { side: null } }]"
         *ngIf="side.opened" class="sideCloseBtn">
     <mat-icon>close</mat-icon>
@@ -47,8 +43,8 @@
             </button>
             <span fxFlex></span>
             <ng-container *ngTemplateOutlet="userNav"></ng-container>
-            <button mat-icon-button [routerLink]="[{ outlets: { side: ['show'] } }]" color="accent">
-                <mat-icon>arrow_left</mat-icon>
+            <button mat-icon-button [routerLink]="[{ outlets: { side: side.opened ? null : ['show'] } }]" color="accent">
+                <mat-icon>{{side.opened ? 'arrow_right': 'arrow_left'}}</mat-icon>
             </button>
         </mat-toolbar>
         <ng-content></ng-content>

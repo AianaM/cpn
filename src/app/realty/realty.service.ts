@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
+import {of} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class RealtyService {
     constructor(private http: HttpClient, public app: AppService) {
     }
 
-    getRealty() {
-        return this.http.get(`${this.api}/realties`);
+    getRealty(id: string) {
+        return id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
     }
 }
