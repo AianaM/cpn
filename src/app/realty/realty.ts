@@ -156,6 +156,19 @@ export class Realty {
         return Object.values(RealtyStatus);
     }
 
+    static statusIcon(status: string) {
+        switch (status) {
+            case RealtyStatus.reserved:
+                return '🔒';
+            case RealtyStatus.sold:
+                return '✔️';
+            case RealtyStatus.removed:
+                return '⛔';
+            default:
+                return '🔥';
+        }
+    }
+
     static get roomsArr() {
         return Array.from({length: 8}, (x, i) => i);
     }

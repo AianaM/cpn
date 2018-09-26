@@ -10,8 +10,8 @@ export class AppService {
     private _loader = new BehaviorSubject<number>(0);
     loaderState$ = this._loader.asObservable();
 
-    private _toolsOpened = new BehaviorSubject<boolean>(false);
-    readonly toolsOpened$ = this._toolsOpened.asObservable();
+    private _sideOpened = new BehaviorSubject<boolean>(false);
+    readonly sideOpened$ = this._sideOpened.asObservable();
 
     constructor(private snackBar: MatSnackBar) {
     }
@@ -28,7 +28,7 @@ export class AppService {
         this._loader.next(value);
     }
 
-    set toolsOpened(opened: boolean) {
-        this._toolsOpened.next(opened);
+    set sideOpened(opened: boolean) {
+        this._sideOpened.next(opened);
     }
 }

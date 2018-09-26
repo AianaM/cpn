@@ -1,9 +1,4 @@
 <mat-card>
-    <!--<mat-card-header *ngIf="full">-->
-        <!--<mat-card-title>{{realty.address.street}}, {{realty.address.number}}-->
-            <!--<span *ngIf="realty.address.name">, ({{realty.address.name}})</span></mat-card-title>-->
-        <!--<mat-card-subtitle>{{realty.address.district}}</mat-card-subtitle>-->
-    <!--</mat-card-header>-->
     <img mat-card-image *ngIf="realty.mediaObjects.length" (click)="show()"
          [src]="realty.mediaObjects[0].links?.squared_thumbnail | safeResourceUrl"
          height="50%" alt="Фото объекта">
@@ -13,6 +8,12 @@
     <!--<img *ngFor="let media of realty.mediaObjects" [src]="media.links?.squared_thumbnail | safeResourceUrl">-->
     <!--</div>-->
     <mat-card-content>
+        <div>
+            <div>{{realty.address.street}}, {{realty.address.number}}
+                <span *ngIf="realty.address.name">, ({{realty.address.name}})</span></div>
+            <div>{{realty.address.district}}</div>
+        </div>
+
         <ul>
             <li> {{realty.rooms | rooms}} <span class="mutted">{{realty.area}}кв.м.</span>
             </li>
@@ -23,14 +24,14 @@
         </ul>
         <p>
             <b>Цена: {{realty.price || 0 | currency: 'RUB':'symbol':'4.0-0'}}</b>
-            <span *ngIf="realty.area"> ({{realty.price/realty.area | currency: 'RUB':'symbol':'4.0-0'}} за м2)</span>
+            <span *ngIf="realty.area"> ({{realty.price/realty.area | currency: 'RUB':'symbol':'4.0-0'}}/м2)</span>
             <span *ngIf="realty.address.newBuilding && realty.address.description.mortgage"> Ипотека</span>
         </p>
         <p>
-            {{realty.updatedAt | date:'short' }} {{realty.status}}
+            {{realty.updatedAt | date:'short' }} {{status}}
         </p>
         <div *ngIf="full">
-            <p>{{getFeatures()}}</p>
+            <p>{{features}}</p>
             <p>{{realty.address.description.text}}</p>
             <p>{{realty.description.text}}</p>
             <div *ngIf="realty.owner">
@@ -39,8 +40,8 @@
             </div>
         </div>
     </mat-card-content>
-    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between end">
+        <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+        <button mat-button>ПОДРОБНЕЕ</button>
     </mat-card-actions>
 </mat-card>

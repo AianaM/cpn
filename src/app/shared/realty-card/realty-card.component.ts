@@ -18,7 +18,7 @@ export class RealtyCardComponent implements OnInit {
     ngOnInit() {
     }
 
-    getFeatures() {
+    get features() {
         if (!this.realty.description.feature || !Object.keys(this.realty.description.feature).length) {
             return;
         }
@@ -35,6 +35,10 @@ export class RealtyCardComponent implements OnInit {
             list = [];
         }
         return text;
+    }
+
+    get status() {
+        return Realty.statusIcon(this.realty.status);
     }
 
     show() {

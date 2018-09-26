@@ -19,7 +19,7 @@
     <mat-sidenav #side position="end" [class.sideFull]="isHandset$ | async" [class.side]="!(isHandset$ | async)"
                  fixedInViewport="true"
                  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" class="mat-elevation-z6"
-                 [mode]="(isHandset$ | async) ? 'over' : 'side'" (openedChange)="onToolsOpenedChange($event)">
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'" (openedChange)="onSideOpenedChange($event)">
         <router-outlet name="side" (activate)='side.open()' (deactivate)='side.close()'></router-outlet>
     </mat-sidenav>
     <mat-sidenav-content>

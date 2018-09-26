@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Breakpoints, BreakpointState, BreakpointObserver} from '@angular/cdk/layout';
 import {RealtyService} from '../realty.service';
-import {Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
+import {Realty} from '../realty';
 
 @Component({
     selector: 'app-index',
@@ -11,13 +12,15 @@ import {Observable} from 'rxjs';
 })
 export class IndexComponent {
 
-    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-        .pipe(
-            map(result => result.matches)
-        );
-
-    realty$ = this.realtyService.realty$.pipe(
+    realty$: Observable<Realty> = this.realtyService.realty$.pipe(
         map(realty => realty['hydra:member'])
+    );
+
+    cols$: Observable<number> = combineLatest(
+        this.breakpointObserver.observe(Breakpoints.Handset),
+        this.realtyService.app.sideOpened$
+    ).pipe(
+        map(([breakpoints, side]) => breakpoints.matches ? 1 : side ? 2 : 4)
     );
 
     constructor(private breakpointObserver: BreakpointObserver, private realtyService: RealtyService) {

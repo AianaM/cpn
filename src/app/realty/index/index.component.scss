@@ -3,19 +3,17 @@
 }
 
 :host /deep/ .grid-container .grid-tile .mat-card {
-  position: absolute;
-  top: 0;
   left: 5px;
   right: 5px;
-  bottom: 5px;
+  bottom: 10px;
 }
 
 :host /deep/ .grid-tile .mat-card {
   position: absolute;
-  top: 0;
+  top: 5px;
   left: 0;
   right: 0;
-  bottom: 10px;
+  bottom: 5px;
 
   flex-direction: column;
   box-sizing: border-box;
@@ -32,5 +30,8 @@
 
 .mat-grid-tile-header {
   z-index: 2;
-  align-items: start!important;
+  margin: 2px 0;
+}
+.grid-container .mat-grid-tile-header {
+  margin: 2px;
 }
