@@ -13,6 +13,10 @@ export class RealtyService {
     constructor(private http: HttpClient, public app: AppService) {
     }
 
+    get realty$() {
+        return this.http.get(`${this.api}/realties`);
+    }
+
     getRealty(id: string) {
         return id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
     }

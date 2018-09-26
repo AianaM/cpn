@@ -19,6 +19,13 @@ export class NavComponent implements OnInit {
     user: User;
     loadState$ = this.auth.app.loaderState$;
 
+    navLinks = [
+        {path: '/', label: 'Главная'},
+        {path: '/stream', label: 'Поток'},
+        {path: '/team', label: 'Команда'},
+        {path: '/realty', label: 'Квартиры'},
+    ];
+
     constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) {
     }
 

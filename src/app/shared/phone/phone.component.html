@@ -1,6 +1,6 @@
 <ul *ngIf="phone">
   <li *ngFor="let item of phone">
     <img src="./assets/whatsApp.svg" height="16px" *ngIf="item.whatsApp">
-    {{item.number}} {{item.type}}
+    {{transform(item.number)}} {{item.type}}
   </li>
 </ul>

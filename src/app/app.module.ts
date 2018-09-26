@@ -1,5 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
+
+import {registerLocaleData} from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -10,6 +13,8 @@ import {IndexComponent} from './index/index.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiInterceptor} from './user/api-interceptor';
 import { SideComponent } from './side/side.component';
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
     declarations: [
@@ -23,7 +28,8 @@ import { SideComponent } from './side/side.component';
         SharedModule
     ],
     providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
+        {provide: LOCALE_ID, useValue: 'ru'}
     ],
     bootstrap: [AppComponent]
 })

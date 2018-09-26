@@ -6,6 +6,7 @@ import {SideComponent} from './side/side.component';
 const routes: Routes = [
     {path: '', component: IndexComponent},
     {path: 'user', loadChildren: './user/user.module#UserModule'},
+    {path: 'realty', loadChildren: './realty/realty.module#RealtyModule'},
     {path: 'show', component: SideComponent, outlet: 'side'},
     {path: 'show/:id', component: SideComponent, outlet: 'side'},
     {path: 'login', redirectTo: '/user/login', pathMatch: 'full'},

@@ -15,16 +15,18 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSelectModule,
-    MatCheckboxModule, MatTabsModule
+    MatCheckboxModule, MatTabsModule, MatGridListModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
 import {SafeUrlPipe} from './safe-url.pipe';
 import {PhoneFormComponent} from './phone-form/phone-form.component';
-import { TeamCardComponent } from './team-card/team-card.component';
-import { PhoneComponent } from './phone/phone.component';
-import { UserCardComponent } from './user-card/user-card.component';
+import {TeamCardComponent} from './team-card/team-card.component';
+import {PhoneComponent} from './phone/phone.component';
+import {UserCardComponent} from './user-card/user-card.component';
 import {LogoComponent} from './logo/logo.component';
+import {RealtyCardComponent} from './realty-card/realty-card.component';
+import {RoomsPipe} from './rooms.pipe';
 
 @NgModule({
     imports: [
@@ -37,10 +39,12 @@ import {LogoComponent} from './logo/logo.component';
         MatCheckboxModule,
         MatIconModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
     ],
     declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
-    LogoComponent],
+        LogoComponent,
+        RealtyCardComponent,
+        RoomsPipe],
     exports: [
         FlexLayoutModule,
         FormsModule,
@@ -61,12 +65,15 @@ import {LogoComponent} from './logo/logo.component';
         MatSelectModule,
         MatCheckboxModule,
         MatTabsModule,
+        MatGridListModule,
         SafeUrlPipe,
         PhoneFormComponent,
         TeamCardComponent,
         PhoneComponent,
         UserCardComponent,
-        LogoComponent
+        LogoComponent,
+        RealtyCardComponent,
+        RoomsPipe
     ]
 })
 export class SharedModule {
