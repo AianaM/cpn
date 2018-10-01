@@ -1,0 +1,7 @@
+<mat-form-field>
+    <mat-select placeholder="Категория" [(ngModel)]="realty.category" name="category">
+        <mat-option *ngFor="let item of categories" [value]="item">
+            {{item}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

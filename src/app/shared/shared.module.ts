@@ -15,7 +15,7 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSelectModule,
-    MatCheckboxModule, MatTabsModule, MatGridListModule
+    MatCheckboxModule, MatTabsModule, MatGridListModule, MatExpansionModule, MatAutocompleteModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
@@ -27,6 +27,7 @@ import {UserCardComponent} from './user-card/user-card.component';
 import {LogoComponent} from './logo/logo.component';
 import {RealtyCardComponent} from './realty-card/realty-card.component';
 import {RoomsPipe} from './rooms.pipe';
+import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form.component';
 
 @NgModule({
     imports: [
@@ -44,7 +45,9 @@ import {RoomsPipe} from './rooms.pipe';
     declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
         LogoComponent,
         RealtyCardComponent,
-        RoomsPipe],
+        RoomsPipe,
+        RealtyFilterFormComponent,
+    ],
     exports: [
         FlexLayoutModule,
         FormsModule,
@@ -66,6 +69,8 @@ import {RoomsPipe} from './rooms.pipe';
         MatCheckboxModule,
         MatTabsModule,
         MatGridListModule,
+        MatExpansionModule,
+        MatAutocompleteModule,
         SafeUrlPipe,
         PhoneFormComponent,
         TeamCardComponent,
@@ -73,7 +78,8 @@ import {RoomsPipe} from './rooms.pipe';
         UserCardComponent,
         LogoComponent,
         RealtyCardComponent,
-        RoomsPipe
+        RoomsPipe,
+        RealtyFilterFormComponent,
     ]
 })
 export class SharedModule {

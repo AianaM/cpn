@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {RealtyService} from '../../realty/realty.service';
 import {switchMap, tap} from 'rxjs/operators';
-import {RealtyService} from '../realty/realty.service';
 
 @Component({
-    selector: 'app-side',
-    templateUrl: './side.component.html',
-    styleUrls: ['./side.component.scss']
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss']
 })
-export class SideComponent implements OnInit, AfterViewInit {
+export class IndexComponent implements OnInit, AfterViewInit {
 
     selected = 0;
     realty$;

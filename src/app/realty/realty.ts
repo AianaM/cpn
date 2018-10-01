@@ -184,3 +184,26 @@ export class Realty {
         ];
     }
 }
+
+export class RealtyFilter {
+    category: string = null;
+    district: string = null;
+    street: string = null;
+    number: string = null;
+    rooms: number = null;
+    floor: number = null;
+    floors: number = null;
+    buildingType: string = null;
+    developer: string = null;
+    newBuilding: boolean = null;
+    quarter: string = null;
+    mortgage: string[] = null;
+    feature: string[] = null;
+    yearMin: number = null;
+    yearMax: number = null;
+    priceMin: number = null;
+    priceMax: number = null;
+    areaMin: number = null;
+    areaMax: number = null;
+}
+

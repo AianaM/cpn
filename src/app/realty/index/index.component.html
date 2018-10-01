@@ -1,5 +1,6 @@
+<app-realty-filter-form></app-realty-filter-form>
 <div [class.grid-container]="(cols$ | async) != 1">
-    <h1 class="mat-h1">Dashboard</h1>
+    <h1 class="mat-h1">Квартиры</h1>
     <mat-grid-list [cols]="cols$ | async" rowHeight="1:1.5">
         <mat-grid-tile *ngFor="let realty of realty$ | async" class="grid-tile">
             <mat-grid-tile-header>

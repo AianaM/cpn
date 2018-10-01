@@ -15,7 +15,7 @@
         </div>
 
         <ul>
-            <li> {{realty.rooms | rooms}} <span class="mutted">{{realty.area}}кв.м.</span>
+            <li> {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}}кв.м.</span>
             </li>
             <li>{{realty.address.type}}, {{realty.address.year }} г.
                 <span *ngIf="realty.address.newBuilding">{{realty.address.description.quarter }}</span>

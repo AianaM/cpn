@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RealtyService} from '../realty/realty.service';
+import {Realty} from '../realty/realty';
 
 @Component({
     selector: 'app-index',
@@ -8,11 +9,13 @@ import {RealtyService} from '../realty/realty.service';
 })
 export class IndexComponent implements OnInit {
 
+    myRealty: Realty;
+
     constructor(private realty: RealtyService) {
     }
 
     ngOnInit() {
-        // this.realty.getRealty().subscribe();
+        this.myRealty = this.realty.myRealty;
     }
 
 }

@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
     loadState$ = this.auth.app.loaderState$;
 
     navLinks = [
-        {path: '/', label: 'Главная'},
+        {path: '/index', label: 'Главная'},
         {path: '/stream', label: 'Поток'},
         {path: '/team', label: 'Команда'},
         {path: '/realty', label: 'Квартиры'},
