@@ -1,0 +1,11 @@
+<mat-form-field>
+    <input type="text" matInput placeholder="Адрес" [(ngModel)]="address" name="address"
+           [matAutocomplete]="autoAddress">
+    <mat-autocomplete #autoAddress="matAutocomplete" [displayWith]="displayFn">
+        <mat-optgroup *ngFor="let group of streetsGroup$ | async" [label]="group.street">
+            <mat-option *ngFor="let address of group.addresses" [value]="address">
+                {{address.number}} <span *ngIf="address.newBuilding">Новостройка</span>
+            </mat-option>
+        </mat-optgroup>
+    </mat-autocomplete>
+</mat-form-field>

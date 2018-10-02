@@ -4,7 +4,7 @@ import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, of} from 'rxjs';
 import {Realty, RealtyFilter} from './realty';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +16,7 @@ export class RealtyService {
     filter = new BehaviorSubject(new RealtyFilter());
 
     readonly realty$ = this.filter.asObservable().pipe(
+        tap(val => console.log(val)),
         switchMap(filters => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
     );
 
@@ -70,5 +71,9 @@ export class RealtyService {
             }
         }
         return url;
+    }
+
+    getStreets(val: string) {
+        return this.http.get(`${this.api}/addresses?street=${encodeURIComponent(val)}`);
     }
 }

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {MatSnackBar} from '@angular/material';
+import {delay, startWith} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +9,10 @@ import {MatSnackBar} from '@angular/material';
 export class AppService {
 
     private _loader = new BehaviorSubject<number>(0);
-    loaderState$ = this._loader.asObservable();
+    loaderState$ = this._loader.asObservable().pipe(
+        startWith(null),
+        delay(0),
+    );
 
     private _sideOpened = new BehaviorSubject<boolean>(false);
     readonly sideOpened$ = this._sideOpened.asObservable();

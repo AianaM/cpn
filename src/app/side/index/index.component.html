@@ -13,12 +13,14 @@
             <ng-template matExpansionPanelContent>
                 <app-realty-form [realty]="realty"></app-realty-form>
             </ng-template>
-
         </mat-expansion-panel>
 
         <span></span>
     </mat-tab>
     <mat-tab label="NEW">
-        <app-realty-form></app-realty-form>
+        <ng-template matTabContent>
+            The First Content
+            <app-realty-form></app-realty-form>
+        </ng-template>
     </mat-tab>
 </mat-tab-group>

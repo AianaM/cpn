@@ -1,9 +1,103 @@
-<!--<mat-form-field>-->
-    <!--<input type="text" placeholder="Улица" aria-label="Street" matInput-->
-           <!--[matAutocomplete]="autoStreet">-->
-    <!--<mat-autocomplete #autoStreet="matAutocomplete">-->
-        <!--<mat-option *ngFor="let option of filteredStreets$ | async" [value]="option">-->
-            <!--{{option.name}}-->
-        <!--</mat-option>-->
-    <!--</mat-autocomplete>-->
-<!--</mat-form-field>-->
+<ng-container *ngIf="address">
+    <app-address-autocomplete [address]="address" (addressChange)="setAddress($event)"></app-address-autocomplete>
+    <button mat-icon-button *ngIf="address['@id']" (click)="filter()">
+        <mat-icon>filter_list</mat-icon>
+    </button>
+
+    <div ngModelGroup="address" #addressGroup="ngModelGroup" fxLayout="column">
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+            <mat-form-field fxFlex.gt-xs="70">
+                <input type="text" placeholder="Улица" aria-label="Street" [(ngModel)]="address.street" name="street"
+                       matInput required>
+            </mat-form-field>
+            <mat-form-field fxFlexOffset.gt-xs="2" fxFlex.gt-xs="28">
+                <input type="text" placeholder="Дом" aria-label="Address number" [(ngModel)]="address.number"
+                       name="number"
+                       matInput required>
+            </mat-form-field>
+        </div>
+        <mat-form-field>
+            <mat-select placeholder="Район" [(ngModel)]="address.district" name="district" required>
+                <mat-option *ngFor="let item of districts" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Name" [(ngModel)]="address.name" name="name">
+        </mat-form-field>
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+            <mat-form-field fxFlex.gt-xs="47">
+                <mat-select placeholder="Тип" [(ngModel)]="address.type" name="type">
+                    <mat-option *ngFor="let item of buildingTypes" [value]="item">
+                        {{item}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex.gt-xs="47">
+                <input matInput placeholder="Год постройки" [(ngModel)]="address.year" name="year" type="number"
+                       pattern="^(19|20)\d{2}$" #year="ngModel">
+                <mat-error>4 цифры</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-checkbox [(ngModel)]="address.newBuilding" name="newBuilding" #newBuilding>Новостройка</mat-checkbox>
+
+        <mat-form-field>
+            <mat-select placeholder="Застрощик" [(ngModel)]="address.developer" name="developer">
+                <mat-option *ngFor="let item of developers" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div ngModelGroup="description" #descriptionGroup="ngModelGroup" fxLayout="column">
+            <div *ngIf="newBuilding.checked" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+                <mat-form-field fxFlex.gt-xs="47">
+                    <mat-select placeholder="Квартал" [(ngModel)]="address.description.quarter" name="quarter">
+                        <mat-option *ngFor="let item of quarters" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex.gt-xs="47">
+                    <mat-select placeholder="Ипотека" [(ngModel)]="address.description.mortgage" name="mortgage"
+                                multiple>
+                        <mat-select-trigger>
+                            {{address.description.mortgage ? address.description.mortgage[0] : ''}}
+                            <span *ngIf="address.description.mortgage?.length > 1"
+                                  style="opacity: 0.75; font-size: 0.75em;">
+                  (и ещё +{{address.description.mortgage.length - 1}})</span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let item of banks" [value]="item">{{item}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+                <mat-form-field fxFlex.gt-xs="47" ngModelGroup="address">
+                    <mat-select placeholder="Этажей в доме" [(ngModel)]="address.floors" name="floors">
+                        <mat-option *ngFor="let item of floorsArr" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-checkbox [(ngModel)]="address.description.elevator" name="elevator">Лифт</mat-checkbox>
+            </div>
+            <mat-form-field>
+                <mat-select placeholder="Характеристики" [(ngModel)]="address.description.feature"
+                            name="feature" multiple>
+                    <mat-optgroup *ngFor="let group of features" [label]="group.name">
+                        <mat-option *ngFor="let item of group.value" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+        <textarea matInput placeholder="Дополнительно о доме" [(ngModel)]="address.description.text"
+                  name="description.text"></textarea>
+            </mat-form-field>
+        </div>
+        <!--<pre>{{address | json}}</pre>-->
+    </div>
+</ng-container>

@@ -28,6 +28,7 @@ import {LogoComponent} from './logo/logo.component';
 import {RealtyCardComponent} from './realty-card/realty-card.component';
 import {RoomsPipe} from './rooms.pipe';
 import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form.component';
+import { AddressAutocompleteComponent } from './address-autocomplete/address-autocomplete.component';
 
 @NgModule({
     imports: [
@@ -41,12 +42,14 @@ import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form
         MatIconModule,
         MatButtonModule,
         MatCardModule,
+        MatAutocompleteModule
     ],
     declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
         LogoComponent,
         RealtyCardComponent,
         RoomsPipe,
         RealtyFilterFormComponent,
+        AddressAutocompleteComponent,
     ],
     exports: [
         FlexLayoutModule,
@@ -70,7 +73,6 @@ import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form
         MatTabsModule,
         MatGridListModule,
         MatExpansionModule,
-        MatAutocompleteModule,
         SafeUrlPipe,
         PhoneFormComponent,
         TeamCardComponent,
@@ -80,6 +82,7 @@ import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form
         RealtyCardComponent,
         RoomsPipe,
         RealtyFilterFormComponent,
+        AddressAutocompleteComponent
     ]
 })
 export class SharedModule {

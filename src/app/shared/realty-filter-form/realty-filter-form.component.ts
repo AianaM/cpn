@@ -9,7 +9,7 @@ import {Address, BANKS, Realty, RealtyFilter} from '../../realty/realty';
 })
 export class RealtyFilterFormComponent implements OnInit {
 
-    filters;
+    filters: RealtyFilter = new RealtyFilter();
 
     readonly categories = Realty.categories;
     readonly roomsArr = Realty.roomsArr;
