@@ -1,11 +1,13 @@
 <ng-container *ngIf="address">
-    <app-address-autocomplete [address]="address" (addressChange)="setAddress($event)"></app-address-autocomplete>
+    <app-address-autocomplete [address]="address" (addressChange)="setAddress($event)" [required]="true">
+    </app-address-autocomplete>
     <button mat-icon-button *ngIf="address['@id']" (click)="filter()">
         <mat-icon>filter_list</mat-icon>
     </button>
 
     <div ngModelGroup="address" #addressGroup="ngModelGroup" fxLayout="column">
-        <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.xs="column" fxLayoutAlign.xs="start stretch"
+             fxHide>
             <mat-form-field fxFlex.gt-xs="70">
                 <input type="text" placeholder="Улица" aria-label="Street" [(ngModel)]="address.street" name="street"
                        matInput required>
@@ -24,7 +26,7 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Name" [(ngModel)]="address.name" name="name">
+            <input matInput placeholder="Название жилого комплекса" [(ngModel)]="address.name" name="name">
         </mat-form-field>
         <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
             <mat-form-field fxFlex.gt-xs="47">

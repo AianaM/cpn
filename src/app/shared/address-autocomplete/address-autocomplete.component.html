@@ -1,11 +1,20 @@
-<mat-form-field>
-    <input type="text" matInput placeholder="Адрес" [(ngModel)]="address" name="address"
-           [matAutocomplete]="autoAddress">
-    <mat-autocomplete #autoAddress="matAutocomplete" [displayWith]="displayFn">
-        <mat-optgroup *ngFor="let group of streetsGroup$ | async" [label]="group.street">
-            <mat-option *ngFor="let address of group.addresses" [value]="address">
-                {{address.number}} <span *ngIf="address.newBuilding">Новостройка</span>
+<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+    <mat-form-field fxFlex.gt-xs="70">
+        <input type="text" placeholder="Улица" aria-label="Street" matInput [(ngModel)]="street" name="street"
+               [matAutocomplete]="autoStreet" [required]="required">
+        <mat-autocomplete autoActiveFirstOption #autoStreet="matAutocomplete" [displayWith]="displayStreetFn">
+            <mat-option *ngFor="let group of streetsGroup$ | async" [value]="group">
+                {{group.street}}
             </mat-option>
-        </mat-optgroup>
-    </mat-autocomplete>
-</mat-form-field>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field fxFlexOffset.gt-xs="2" fxFlex.gt-xs="28">
+        <input type="text" placeholder="Номер дома" aria-label="Number" matInput [(ngModel)]="number" name="number"
+               [matAutocomplete]="autoNumber" [required]="required">
+        <mat-autocomplete autoActiveFirstOption #autoNumber="matAutocomplete" [displayWith]="displayNumberFn">
+            <mat-option *ngFor="let option of filteredAddresses$ | async" [value]="option">
+                {{option.number}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>
