@@ -1,0 +1,52 @@
+<div ngModelGroup="hiddenInfo" #hiddenInfoGroup="ngModelGroup" fxLayout="column">
+
+  <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+    <mat-form-field fxFlex.gt-xs="47">
+      <input matInput placeholder="Квартира" [(ngModel)]="hiddenInfo.flat"
+             name="flat">
+    </mat-form-field>
+    <mat-form-field fxFlex.gt-xs="47">
+      <input matInput placeholder="Подъезд" [(ngModel)]="hiddenInfo.entrance"
+             name="entrance">
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox #encumbrance>Обременение</mat-checkbox>
+  <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%" *ngIf="encumbrance.checked">
+    <mat-form-field fxFlex.gt-xs="47">
+      <input matInput placeholder="Размер обременения" [(ngModel)]="hiddenInfo.encumbranceAmount"
+             name="encumbranceAmount" type="number" #encumbranceAmount>
+      <span matSuffix>.00 ₽</span>
+      <mat-hint align="end">{{encumbranceAmount.value | currency: 'RUB':'symbol':'4.0-0'}}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field fxFlex.gt-xs="47">
+      <mat-select placeholder="Банк" [(ngModel)]="hiddenInfo.encumbranceBank"
+                  name="encumbranceBank">
+        <mat-option *ngFor="let item of banks" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox [(ngModel)]="hiddenInfo.maternalCapital"
+                name="maternalСapital">
+    <span style="white-space: normal">Использовался ли МСК при покупке/гашении ипотеки</span>
+  </mat-checkbox>
+  <mat-checkbox [(ngModel)]="hiddenInfo.shareProperty"
+                name="shareProperty">Долевая собственность
+  </mat-checkbox>
+  <mat-checkbox [(ngModel)]="hiddenInfo.ownershipLessThan3years"
+                name="ownershipLessThan3years">В собственности менее 3 лет
+  </mat-checkbox>
+
+  <mat-checkbox [(ngModel)]="hiddenInfo.haggle"
+                name="haggle">Торг
+  </mat-checkbox>
+
+  <mat-form-field fxFlexAlign="stretch">
+        <textarea matInput placeholder="Заметка" [(ngModel)]="hiddenInfo.note"
+                  name="note"></textarea>
+  </mat-form-field>
+</div>

@@ -7,13 +7,14 @@ import {IndexComponent} from './index/index.component';
 import { RealtyFormComponent } from './realty-form/realty-form.component';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { DetailsFormComponent } from './details-form/details-form.component';
+import { HiddenInfoFormComponent } from './hidden-info-form/hidden-info-form.component';
 
 @NgModule({
     imports: [
         CommonModule,
         SideRoutingModule, SharedModule
     ],
-    declarations: [IndexComponent, RealtyFormComponent, AddressFormComponent, DetailsFormComponent]
+    declarations: [IndexComponent, RealtyFormComponent, AddressFormComponent, DetailsFormComponent, HiddenInfoFormComponent]
 })
 export class SideModule {
 }

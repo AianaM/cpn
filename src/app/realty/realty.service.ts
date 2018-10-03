@@ -76,4 +76,8 @@ export class RealtyService {
     getStreets(val: string) {
         return this.http.get(`${this.api}/addresses?street=${encodeURIComponent(val)}`);
     }
+
+    getOwners(val: string) {
+        return this.http.get(`${this.api}/realties?owner[any]=${encodeURIComponent(val)}`);
+    }
 }

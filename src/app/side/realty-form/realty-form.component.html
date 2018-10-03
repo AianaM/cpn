@@ -7,7 +7,15 @@
         </mat-select>
     </mat-form-field>
     <app-address-form [(address)]="realty.address"></app-address-form>
-    <app-details-form [(realty)]="realty"></app-details-form>
+    <app-details-form [realty]="realty"></app-details-form>
+
+    <mat-form-field fxFlexAlign="stretch">
+        <input matInput placeholder="Кадастровый номер" [(ngModel)]="realty.cadastralNumber"
+               name="cadastralNumber">
+    </mat-form-field>
+
+    <app-hidden-info-form [hiddenInfo]="realty.hiddenInfo"></app-hidden-info-form>
+    <app-owner-autocomplete [(owner)]="realty.owner"></app-owner-autocomplete>
 
 
     <pre>{{realtyForm.value | json}}</pre>

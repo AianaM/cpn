@@ -76,7 +76,7 @@
                 </mat-form-field>
             </div>
             <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
-                <mat-form-field fxFlex.gt-xs="47" ngModelGroup="address">
+                <mat-form-field fxFlex.gt-xs="47">
                     <mat-select placeholder="Этажей в доме" [(ngModel)]="address.floors" name="floors">
                         <mat-option *ngFor="let item of floorsArr" [value]="item">
                             {{item}}
@@ -97,7 +97,7 @@
             </mat-form-field>
             <mat-form-field fxFlex>
         <textarea matInput placeholder="Дополнительно о доме" [(ngModel)]="address.description.text"
-                  name="description.text"></textarea>
+                  name="text"></textarea>
             </mat-form-field>
         </div>
         <!--<pre>{{address | json}}</pre>-->

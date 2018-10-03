@@ -1,0 +1,10 @@
+<mat-form-field>
+  <input type="text" placeholder="Поиск по номеру" aria-label="Phone" matInput [(ngModel)]="owner"
+         [matAutocomplete]="autoOwner" #ownerField="ngModel" [ngModelOptions]="{standalone: true}">
+  <mat-autocomplete autoActiveFirstOption #autoOwner="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredRealty$ | async" [value]="option.owner">
+      <span>{{option.owner.name}}</span>,
+      <small>{{option.owner.phone[0].number}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
