@@ -15,8 +15,13 @@
     </mat-form-field>
 
     <app-hidden-info-form [hiddenInfo]="realty.hiddenInfo"></app-hidden-info-form>
-    <app-owner-autocomplete [(owner)]="realty.owner"></app-owner-autocomplete>
-
+    <div ngModelGroup="owner" #ownerGroup="ngModelGroup" fxLayout="column">
+        <app-owner-autocomplete [(owner)]="realty.owner"></app-owner-autocomplete>
+        <mat-form-field>
+            <input matInput placeholder="Владелец" [(ngModel)]="realty.owner.name" name="name" required>
+        </mat-form-field>
+        <app-phone-form [phone]="realty.owner.phone"></app-phone-form>
+    </div>
 
     <pre>{{realtyForm.value | json}}</pre>
     <h1>MODEL</h1>
