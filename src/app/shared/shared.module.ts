@@ -28,8 +28,9 @@ import {LogoComponent} from './logo/logo.component';
 import {RealtyCardComponent} from './realty-card/realty-card.component';
 import {RoomsPipe} from './rooms.pipe';
 import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form.component';
-import { AddressAutocompleteComponent } from './address-autocomplete/address-autocomplete.component';
-import { OwnerAutocompleteComponent } from './owner-autocomplete/owner-autocomplete.component';
+import {AddressAutocompleteComponent} from './address-autocomplete/address-autocomplete.component';
+import {OwnerAutocompleteComponent} from './owner-autocomplete/owner-autocomplete.component';
+import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/manager-autocomplete-form.component';
 
 @NgModule({
     imports: [
@@ -52,6 +53,7 @@ import { OwnerAutocompleteComponent } from './owner-autocomplete/owner-autocompl
         RealtyFilterFormComponent,
         AddressAutocompleteComponent,
         OwnerAutocompleteComponent,
+        ManagerAutocompleteFormComponent
     ],
     exports: [
         FlexLayoutModule,
@@ -85,7 +87,8 @@ import { OwnerAutocompleteComponent } from './owner-autocomplete/owner-autocompl
         RoomsPipe,
         RealtyFilterFormComponent,
         AddressAutocompleteComponent,
-        OwnerAutocompleteComponent
+        OwnerAutocompleteComponent,
+        ManagerAutocompleteFormComponent
     ]
 })
 export class SharedModule {

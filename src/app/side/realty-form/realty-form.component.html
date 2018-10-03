@@ -22,6 +22,7 @@
         </mat-form-field>
         <app-phone-form [phone]="realty.owner.phone"></app-phone-form>
     </div>
+    <app-manager-autocomplete-form [(manager)]="realty.manager"></app-manager-autocomplete-form>
 
     <pre>{{realtyForm.value | json}}</pre>
     <h1>MODEL</h1>

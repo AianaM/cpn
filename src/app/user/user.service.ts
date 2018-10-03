@@ -119,4 +119,12 @@ export class UserService {
         });
     }
 
+    get team$() {
+        return this.http.get(`${this.api}/team`);
+    }
+
+    get teamManagers$() {
+        return this.http.get(`${this.api}/users?roles[]=ROLE_MANAGER&roles[]=ROLE_TEAMMATE`);
+    }
+
 }
