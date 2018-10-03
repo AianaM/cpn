@@ -1,0 +1,54 @@
+<div fxLayout="column" *ngIf="realty">
+  <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+    <mat-form-field fxFlex.gt-xs="47">
+      <mat-select placeholder="Этаж" [(ngModel)]="realty.floor" name="floor">
+        <mat-option *ngFor="let item of floorsArr" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+      <mat-hint align="end">из {{realty.address.floors || 'не указано'}}</mat-hint>
+    </mat-form-field>
+    <mat-form-field fxFlex.gt-xs="47">
+      <mat-select placeholder="Комнаты" [(ngModel)]="realty.rooms" name="rooms">
+        <mat-option *ngFor="let item of roomsArr" [value]="item">
+          {{item | rooms}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+    <mat-form-field fxFlex.gt-xs="47">
+      <input matInput placeholder="Площадь" [(ngModel)]="realty.area" name="area" type="number">
+    </mat-form-field>
+    <ng-container ngModelGroup="description" #descriptionGroup="ngModelGroup">
+      <mat-form-field fxFlex.gt-xs="47">
+        <input matInput placeholder="Площадь балкона/лоджии"
+               [(ngModel)]="realty.description.balconyArea"
+               name="area" type="number">
+      </mat-form-field>
+    </ng-container>
+  </div>
+  <ng-container ngModelGroup="description" #descriptionGroup="ngModelGroup">
+    <mat-form-field>
+      <mat-select placeholder="Характеристики" [(ngModel)]="realty.description.feature"
+                  name="feature" multiple>
+        <mat-optgroup *ngFor="let group of features" [label]="group.name">
+          <mat-option *ngFor="let item of group.value" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+                    <textarea matInput placeholder="Описание внутренней отделки"
+                              [(ngModel)]="realty.description.text" name="description"></textarea>
+    </mat-form-field>
+  </ng-container>
+  <div fxLayout="row" fxLayoutAlign="end end">
+    <mat-form-field fxFlex.gt-xs="47">
+      <input matInput placeholder="Цена" [(ngModel)]="realty.price" name="price"
+             type="number">
+      <mat-hint>{{realty.price | currency: 'RUB':'symbol':'4.0-0'}}</mat-hint>
+    </mat-form-field>
+  </div>
+</div>

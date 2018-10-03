@@ -6,13 +6,14 @@ import {SharedModule} from '../shared/shared.module';
 import {IndexComponent} from './index/index.component';
 import { RealtyFormComponent } from './realty-form/realty-form.component';
 import { AddressFormComponent } from './address-form/address-form.component';
+import { DetailsFormComponent } from './details-form/details-form.component';
 
 @NgModule({
     imports: [
         CommonModule,
         SideRoutingModule, SharedModule
     ],
-    declarations: [IndexComponent, RealtyFormComponent, AddressFormComponent]
+    declarations: [IndexComponent, RealtyFormComponent, AddressFormComponent, DetailsFormComponent]
 })
 export class SideModule {
 }

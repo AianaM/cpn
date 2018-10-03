@@ -7,6 +7,8 @@
         </mat-select>
     </mat-form-field>
     <app-address-form [(address)]="realty.address"></app-address-form>
+    <app-details-form [(realty)]="realty"></app-details-form>
+
 
     <pre>{{realtyForm.value | json}}</pre>
     <h1>MODEL</h1>
