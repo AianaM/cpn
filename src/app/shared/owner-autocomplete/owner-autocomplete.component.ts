@@ -5,6 +5,8 @@ import {BehaviorSubject, of} from 'rxjs';
 import {debounceTime, map, startWith, switchMap, tap} from 'rxjs/operators';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as isEqual from 'lodash/isEqual';
+import * as groupBy from 'lodash/groupBy';
+import * as transform from 'lodash/transform';
 
 @Component({
     selector: 'app-owner-autocomplete',
@@ -28,6 +30,10 @@ export class OwnerAutocompleteComponent implements OnInit, OnChanges {
                 newOwner = _newOwner ? cloneDeep(_newOwner.owner) : this.createNewOwner(this.owner.phone[0].number);
             }
             this.ownerChange.emit(newOwner);
+        }),
+        map(value => {
+            const groups = groupBy(value, x => JSON.stringify(x.owner));
+            return transform(groups, (result, val, key) => result.push({owner: JSON.parse(key), realty: val}), []);
         })
     );
 
