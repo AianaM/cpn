@@ -17,19 +17,22 @@ export class OwnerAutocompleteComponent implements OnInit, OnChanges {
 
     @Input('owner') _ownerObject: Owner;
     @Output() ownerChange = new EventEmitter();
+    @Output() value = new EventEmitter();
+
     private _owner = new BehaviorSubject<Owner | string>(null);
     filteredRealty$ = this._owner.asObservable().pipe(
         startWith(''),
         debounceTime(750),
+        tap(value => this.value.emit(this.displayFn(value))),
         switchMap(value => value ? this.realtyService.getOwners(this.displayFn(value)) : of({'hydra:member': []})),
         map(result => result['hydra:member']),
         tap(value => {
-            let newOwner;
             if (this.owner && typeof this.owner !== 'string') {
                 const _newOwner = value.find(val => isEqual(val.owner, this.owner));
-                newOwner = _newOwner ? cloneDeep(_newOwner.owner) : this.createNewOwner(this.owner.phone[0].number);
+                if (_newOwner) {
+                    this.ownerChange.emit(cloneDeep(_newOwner.owner));
+                }
             }
-            this.ownerChange.emit(newOwner);
         }),
         map(value => {
             const groups = groupBy(value, x => JSON.stringify(x.owner));
@@ -56,10 +59,7 @@ export class OwnerAutocompleteComponent implements OnInit, OnChanges {
     }
 
     set owner(value: Owner | string) {
-        if (typeof value === 'string') {
-            value = this.createNewOwner(value);
-        }
-        if (!isEqual(value, this._owner.getValue())) {
+        if (!isEqual(value, this._owner.getValue()) && value !== this._owner.getValue()) {
             this._owner.next(value);
         }
     }

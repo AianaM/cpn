@@ -196,9 +196,10 @@ export class RealtyFilter {
     buildingType: string = null;
     developer: string = null;
     newBuilding: boolean = null;
+    feature: string[] = [];
+    owner: string = null;
     quarter: string = null;
     mortgage: string[] = null;
-    feature: string[] = null;
     yearMin: number = null;
     yearMax: number = null;
     priceMin: number = null;

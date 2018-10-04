@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {Realty} from '../../realty/realty';
+import {Realty, RealtyFilter} from '../../realty/realty';
 import {RealtyService} from '../../realty/realty.service';
 import * as cloneDeep from 'lodash/cloneDeep';
 
@@ -12,6 +12,7 @@ export class RealtyFormComponent implements OnInit, OnChanges {
 
     @Input('realty') _realty: Realty;
     realty: Realty = this.realtyService.myRealty;
+    private _ownerFilter: string;
 
     readonly categories = Realty.categories;
 
@@ -26,8 +27,14 @@ export class RealtyFormComponent implements OnInit, OnChanges {
         this.realty = cloneDeep(this._realty);
     }
 
-    filter() {
+    filterByOwner() {
+        const filter = new RealtyFilter();
+        filter.owner = this._ownerFilter;
+        this.realtyService.filter.next(filter);
+    }
 
+    ownerFilterValue($event) {
+        this._ownerFilter = $event;
     }
 
     onSubmit() {

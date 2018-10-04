@@ -19,9 +19,10 @@
     <div ngModelGroup="owner" #ownerGroup="ngModelGroup" fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="start center">
             <div fxFlex>
-                <app-owner-autocomplete [owner]="realty.owner" (ownerChange)="realty.owner = $event"></app-owner-autocomplete>
+                <app-owner-autocomplete [(owner)]="realty.owner" (value)="ownerFilterValue($event)">
+                </app-owner-autocomplete>
             </div>
-            <button mat-icon-button (click)="filter()">
+            <button mat-icon-button (click)="filterByOwner()">
                 <mat-icon>filter_list</mat-icon>
             </button>
         </div>
