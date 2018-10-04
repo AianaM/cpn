@@ -4,7 +4,9 @@ import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, of} from 'rxjs';
 import {Realty, RealtyFilter} from './realty';
-import {switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
+import {MediaObject} from '../media-object/media-object';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Injectable({
     providedIn: 'root'
@@ -20,11 +22,15 @@ export class RealtyService {
         switchMap(filters => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
     );
 
+    private _showRealty = new BehaviorSubject(null);
+
     constructor(private http: HttpClient, public app: AppService) {
     }
 
     getRealty(id: string) {
-        return id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
+        const realty = id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
+        realty.subscribe(val => this._showRealty.next(val));
+        return this._showRealty.asObservable();
     }
 
     private generateSearchURL(filters: RealtyFilter): string {
@@ -79,5 +85,83 @@ export class RealtyService {
 
     getOwners(val: string) {
         return this.http.get(`${this.api}/realties?owner[any]=${encodeURIComponent(val)}`);
+    }
+
+    saveRealty(realty: Realty) {
+        let data: Realty | any = cloneDeep(realty);
+
+        data.area = parseFloat(data.area || 0).toFixed(2);
+        data.price = parseFloat(data.price || 0).toFixed(2);
+        data.fee = parseFloat(data.fee || 0).toFixed(2);
+
+        data.owner.phone = realty.owner.phone.map(phone => {
+            const number = phone.number.replace(/[^\d]/g, '').replace(/^(7|8)/, '');
+            phone.number = number;
+            return phone;
+        });
+
+        const indexes = [];
+
+        const files = () => {
+            const _files = [];
+            realty.mediaObjects.forEach((media, i) => {
+                if (media.file) {
+                    media.realties = [{id: data.id} as Realty];
+                    media.tags = [];
+                    media.tags.push(`${data.address.street}, ${data.address.number}`);
+                    if (data.rooms) {
+                        media.tags.push(`${data.rooms} комн.`);
+                    }
+                    _files.push(media);
+                    indexes.push(i);
+                }
+            });
+            return _files;
+        };
+        let _request;
+        if (data.id) {
+            _request = this.saveMedia(files()).pipe(switchMap(media => {
+                media['hydra:member'].forEach((value, index) => {
+                    const _index = indexes[index];
+                    data.mediaObjects[_index] = value;
+                });
+                return this.http.put(`${this.api}/realties/${data.id}`, data);
+            }));
+        } else {
+            data.mediaObjects = [];
+            _request = this.http.post(`${this.api}/realties`, data).pipe(
+                tap((result: Realty) => data = result),
+                switchMap(() => this.saveMedia(files())),
+                map(media => {
+                    data.mediaObjects = media['hydra:member'];
+                    return data;
+                })
+            );
+        }
+
+        return _request.pipe(tap((result: Realty) => {
+            this._showRealty.next(result);
+            this.filter.next(this.filter.getValue());
+        }));
+    }
+
+    saveMedia(data: MediaObject[]) {
+        if (!data.length) {
+            return of({['hydra:member']: []});
+        }
+        const formData = new FormData();
+        let i = 0;
+        for (const media of data) {
+            formData.append(`mediaObjects[${i}][file]`, media.file);
+            for (const tag of media.tags || []) {
+                formData.append(`mediaObjects[${i}][tags][]`, tag);
+            }
+            for (const realty of media.realties || []) {
+                formData.append(`mediaObjects[${i}][realties][]`, realty.id);
+            }
+            i++;
+        }
+
+        return this.http.post(`${this.api}/media_objects/multi`, formData);
     }
 }

@@ -15,14 +15,28 @@
     </mat-form-field>
 
     <app-hidden-info-form [hiddenInfo]="realty.hiddenInfo"></app-hidden-info-form>
+
     <div ngModelGroup="owner" #ownerGroup="ngModelGroup" fxLayout="column">
-        <app-owner-autocomplete [(owner)]="realty.owner"></app-owner-autocomplete>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div fxFlex>
+                <app-owner-autocomplete [owner]="realty.owner" (ownerChange)="realty.owner = $event"></app-owner-autocomplete>
+            </div>
+            <button mat-icon-button (click)="filter()">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+        </div>
         <mat-form-field>
             <input matInput placeholder="Владелец" [(ngModel)]="realty.owner.name" name="name" required>
         </mat-form-field>
         <app-phone-form [phone]="realty.owner.phone"></app-phone-form>
     </div>
+    <app-media-object-form [mediaObjects]="realty.mediaObjects"></app-media-object-form>
     <app-manager-autocomplete-form [(manager)]="realty.manager"></app-manager-autocomplete-form>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button (click)="resetForm()">Очистить</button>
+        <button mat-button color="primary" (click)="onSubmit(realtyForm)">Сохранить</button>
+    </div>
 
     <pre>{{realtyForm.value | json}}</pre>
     <h1>MODEL</h1>

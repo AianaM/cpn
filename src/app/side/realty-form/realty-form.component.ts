@@ -26,4 +26,21 @@ export class RealtyFormComponent implements OnInit, OnChanges {
         this.realty = cloneDeep(this._realty);
     }
 
+    filter() {
+
+    }
+
+    onSubmit() {
+        this.realtyService.app.openSnackBar('Подождите сохраняю...', '', 3000);
+        this.realtyService.saveRealty(this.realty).subscribe((val: Realty) => {
+            this.realtyService.app.openSnackBar('Cохранил!');
+        });
+    }
+
+    resetForm() {
+        if (!this.realty['@id']) {
+            this.realtyService.myRealty = new Realty();
+        }
+    }
+
 }

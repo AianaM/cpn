@@ -1,0 +1,26 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button type="button" (click)="fileUpl.click()">
+        <mat-icon>photo_camera</mat-icon>
+    </button>
+
+    <button mat-button [color]="editMode ? 'accent' : 'primary'" type="button" (click)="editModeToggle()">
+        <mat-icon>check</mat-icon>
+    </button>
+</div>
+
+<div fxLayout="row wrap" class="media-container">
+    <button mat-button *ngFor="let media of mediaObjects"
+    (click)="checked(media)" [class.checked]="isChecked(media)">
+        <img [src]="media.links.squared_thumbnail_64 | safeResourceUrl" width="64px" height="64px">
+    </button>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="editMode">
+    <button mat-button type="button" (click)="removeChecked()">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>
+
+<div fxHide>
+    <label for="files">Изменить фото</label>
+    <input type="file" id="files" (change)="uploadFiles($event)" #fileUpl multiple>
+</div>
