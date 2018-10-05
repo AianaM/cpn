@@ -36,10 +36,10 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <button mat-button (click)="resetForm()">Очистить</button>
-        <button mat-button color="primary" (click)="onSubmit(realtyForm)">Сохранить</button>
+        <button mat-button color="primary" [disabled]="realtyForm.invalid" (click)="onSubmit(realtyForm)">Сохранить</button>
     </div>
 
-    <pre>{{realtyForm.value | json}}</pre>
-    <h1>MODEL</h1>
-    <pre>{{realty | json}}</pre>
+    <!--<pre>{{realtyForm.value | json}}</pre>-->
+    <!--<h1>MODEL</h1>-->
+    <!--<pre>{{realty | json}}</pre>-->
 </form>

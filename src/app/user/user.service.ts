@@ -98,11 +98,7 @@ export class UserService {
             switchMap(photo => {
                 if (photo) {
                     data.photo = photo;
-                    data.name.phone = data.name.phone.map(phone => {
-                        if (phone.number) {
-                            return phone;
-                        }
-                    });
+                    data.name.phone = data.name.phone.filter(phone => phone.number);
                     return this.http.put(`${this.api}${data['@id']}`, data);
                 }
                 return of(null);

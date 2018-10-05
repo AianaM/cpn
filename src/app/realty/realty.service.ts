@@ -7,6 +7,7 @@ import {Realty, RealtyFilter} from './realty';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {MediaObject} from '../media-object/media-object';
 import * as cloneDeep from 'lodash/cloneDeep';
+import {AuthService} from '../user/auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,8 @@ import * as cloneDeep from 'lodash/cloneDeep';
 export class RealtyService {
     private readonly api = environment.api;
 
-    myRealty = new Realty();
+    // myRealty = new Realty();
+    myRealty = this.newRealty();
     filter = new BehaviorSubject(new RealtyFilter());
 
     readonly realty$ = this.filter.asObservable().pipe(
@@ -22,15 +24,17 @@ export class RealtyService {
         switchMap(filters => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
     );
 
-    private _showRealty = new BehaviorSubject(null);
+    constructor(private http: HttpClient, public app: AppService, private auth: AuthService) {
+    }
 
-    constructor(private http: HttpClient, public app: AppService) {
+    newRealty() {
+        const realty = new Realty();
+        this.auth.currentUser$.subscribe(user => realty.manager = user);
+        return realty;
     }
 
     getRealty(id: string) {
-        const realty = id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
-        realty.subscribe(val => this._showRealty.next(val));
-        return this._showRealty.asObservable();
+        return id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
     }
 
     private generateSearchURL(filters: RealtyFilter): string {
@@ -140,7 +144,6 @@ export class RealtyService {
         }
 
         return _request.pipe(tap((result: Realty) => {
-            this._showRealty.next(result);
             this.filter.next(this.filter.getValue());
         }));
     }
