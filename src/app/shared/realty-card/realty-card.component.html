@@ -1,12 +1,17 @@
 <mat-card>
-    <img mat-card-image *ngIf="realty.mediaObjects.length" (click)="show()"
-         [src]="realty.mediaObjects[0].links?.squared_thumbnail | safeResourceUrl"
-         height="50%" alt="Фото объекта">
+    <mat-tab-group mat-card-image *ngIf="realty.mediaObjects.length" headerPosition="below" class="photos">
+        <mat-tab *ngFor="let photo of realty.mediaObjects">
+            <ng-template mat-tab-label>
+                <img [src]="photo.links?.squared_thumbnail_64 | safeResourceUrl" alt="Фото объекта"
+                style="height: 64px; width: 64px;"
+                >
+            </ng-template>
+            <img *ngIf="realty.mediaObjects.length" (click)="show()"
+                 [src]="photo.links?.squared_thumbnail | safeResourceUrl" alt="Фото объекта">
+        </mat-tab>
+    </mat-tab-group>
     <img mat-card-image *ngIf="!realty.mediaObjects.length" src="./assets/realty.png"
          height="50%" alt="Нет фото объекта">
-    <!--<div mat-card-image fxLayout="row" fxLayoutGap="15px" class="media">-->
-    <!--<img *ngFor="let media of realty.mediaObjects" [src]="media.links?.squared_thumbnail | safeResourceUrl">-->
-    <!--</div>-->
     <mat-card-content>
         <div>
             <div>{{realty.address.street}}, {{realty.address.number}}
@@ -41,7 +46,9 @@
         </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between end">
-        <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+        <button mat-icon-button>
+            <mat-icon>favorite_border</mat-icon>
+        </button>
         <button mat-button>ПОДРОБНЕЕ</button>
     </mat-card-actions>
 </mat-card>

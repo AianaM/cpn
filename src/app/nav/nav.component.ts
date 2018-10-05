@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {AuthService} from '../user/auth.service';
 import {User} from '../user/user';
 
@@ -12,8 +12,9 @@ import {User} from '../user/user';
 })
 export class NavComponent implements OnInit {
 
-    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
         .pipe(
+            tap(result => console.log(result)),
             map(result => result.matches)
         );
     user: User;

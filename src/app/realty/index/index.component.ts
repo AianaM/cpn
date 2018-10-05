@@ -17,10 +17,24 @@ export class IndexComponent {
     );
 
     cols$: Observable<number> = combineLatest(
-        this.breakpointObserver.observe(Breakpoints.Handset),
+        this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge]),
         this.realtyService.app.sideOpened$
     ).pipe(
-        map(([breakpoints, side]) => breakpoints.matches ? 1 : side ? 2 : 4)
+        map(([breakpoints, side]) => {
+            // (max-width: 599px): false
+            // (min-width: 600px) and (max-width: 959px): true
+            // (min-width: 960px) and (max-width: 1279px): false
+            // (min-width: 1280px) and (max-width: 1919px): false
+            // (min-width: 1920px): false
+
+            let cols = 1;
+            for (const value of Object.values(breakpoints.breakpoints)) {
+                if (value) {
+                    return side ? cols - 1 : cols;
+                }
+                cols++;
+            }
+        })
     );
 
     constructor(private breakpointObserver: BreakpointObserver, private realtyService: RealtyService) {

@@ -1,9 +1,20 @@
-.media::-webkit-scrollbar {
-  display: none;
+.photos {
+  height: 50%;
 }
 
-.media {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+.photos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:host /deep/ .photos .mat-tab-label {
+  padding: 2px;
+  min-width: 64px;
+  max-height: 64px;
+  overflow: hidden;
+}
+
+:host /deep/ .photos .mat-tab-body-content {
+  overflow: hidden;
 }
