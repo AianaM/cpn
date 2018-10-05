@@ -34,8 +34,38 @@
     <app-media-object-form [mediaObjects]="realty.mediaObjects"></app-media-object-form>
     <app-manager-autocomplete-form [(manager)]="realty.manager"></app-manager-autocomplete-form>
 
+    <mat-form-field>
+        <mat-select placeholder="Статус" [(ngModel)]="realty.status" name="status">
+            <mat-option *ngFor="let item of statuses" [value]="item" [disabled]="item === 'Активно' && !realty.manager">
+                {{item}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="realty.exclusive" name="exclusive">Эксклюзив</mat-checkbox>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5%">
+        <mat-form-field fxFlex.gt-xs="47">
+            <input matInput placeholder="Price" [(ngModel)]="realty.price" name="price" type="number">
+            <span matSuffix>.00₽</span>
+            <mat-hint>{{realty.price | currency: 'RUB':'symbol':'4.0-0'}}</mat-hint>
+        </mat-form-field>
+
+        <ng-container ngModelGroup="hiddenInfo" #hiddenInfoGroup="ngModelGroup">
+            <mat-form-field fxFlex.gt-xs="47">
+                <input matInput placeholder="Комиссия" [(ngModel)]="realty.hiddenInfo.fee" name="fee"
+                       pattern="^((?!(0))|(\d+(\.|\,)))\d+%?$">
+            </mat-form-field>
+        </ng-container>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="end end">
+        <mat-form-field fxFlex.gt-xs="47">
+            <input matInput placeholder="Комиссия в рублях"
+                   [value]="countedFee | currency: 'RUB':'symbol':'4.0-0'" disabled>
+            <span matSuffix>.00₽</span>
+        </mat-form-field>
+    </div>
+
     <div fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-button (click)="resetForm()">Очистить</button>
+        <button mat-button (click)="resetForm()" *ngIf="!realty['@id']">Очистить</button>
         <button mat-button color="primary" [disabled]="realtyForm.invalid" (click)="onSubmit(realtyForm)">Сохранить</button>
     </div>
 

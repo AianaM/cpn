@@ -80,6 +80,10 @@ export class RealtyService {
                 }
             }
         }
+        if (filters.manager) {
+            url += url ? '&' : '?';
+            url += `manager.id=${filters.manager.id}`;
+        }
         return url;
     }
 

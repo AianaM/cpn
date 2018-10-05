@@ -18,3 +18,7 @@
 :host /deep/ .photos .mat-tab-body-content {
   overflow: hidden;
 }
+
+:host /deep/ .photos .mat-tab-labels {
+  padding-top: 2px;
+}

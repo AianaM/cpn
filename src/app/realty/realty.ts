@@ -190,6 +190,7 @@ export class RealtyFilter {
     district: string = null;
     street: string = null;
     number: string = null;
+    manager: User = null;
     rooms: number = null;
     floor: number = null;
     floors: number = null;

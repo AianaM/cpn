@@ -45,7 +45,8 @@ import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/mana
         MatButtonModule,
         MatCardModule,
         MatAutocompleteModule,
-        MatTabsModule
+        MatTabsModule,
+        MatExpansionModule
     ],
     declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
         LogoComponent,

@@ -1,136 +1,147 @@
 <form #searchForm="ngForm" *ngIf="filters">
     <div fxLayout="row" fxLayoutAlign="center center">
         <div fxLayout="column" fxLayoutAlign="center stretch" fxFlex.gt-xs="600px">
-            <h4>
-                ПОИСК НЕДВИЖИМОСТИ
-                <!--<span style="color: red">ПОИСК НЕДВИЖИМОСТИ</span>-->
-            </h4>
-            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
-                <mat-form-field fxFlex.gt-xs="47">
-                    <mat-select placeholder="Категория" [(ngModel)]="filters.category" name="category">
-                        <mat-option *ngFor="let item of categories" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="47">
-                    <mat-select placeholder="Район" [(ngModel)]="filters.district" name="district" multiple>
-                        <mat-option *ngFor="let item of districts" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <!--<app-address-autocomplete [(address)]="address"></app-address-autocomplete>-->
-            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
-                <mat-form-field fxFlex.gt-xs="23">
-                    <input matInput placeholder="Площадь от" [(ngModel)]="filters.areaMin" name="areaMin"
-                           type="number">
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="23">
-                    <input matInput placeholder="Площадь до" [(ngModel)]="filters.areaMax" name="areaMax"
-                           type="number">
-                </mat-form-field>
-
-                <mat-form-field fxFlex.gt-xs="23">
-                    <input matInput placeholder="Цена от" [(ngModel)]="filters.priceMin" name="priceMin"
-                           type="number">
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="23">
-                    <input matInput placeholder="Цена до" [(ngModel)]="filters.priceMax" name="priceMax"
-                           type="number">
-                </mat-form-field>
-            </div>
-            <h4>
-                Детали
-            </h4>
-            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
-                <mat-form-field fxFlex.gt-xs="23">
-                    <mat-select placeholder="Комнаты" [(ngModel)]="filters.rooms" name="rooms" multiple>
-                        <mat-option *ngFor="let item of roomsArr" [value]="item">
-                            {{item | rooms}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="23">
-                    <mat-select placeholder="Тип" [(ngModel)]="filters.buildingType" name="buildingType" multiple>
-                        <mat-option *ngFor="let item of buildingTypes" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="23">
-                    <input matInput placeholder="Год от" [(ngModel)]="filters.yearMin" name="yearMin"
-                           type="number" pattern="^(19|20)\d{2}$">
-                    <mat-error>4 цифры</mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="23">
-                    <input matInput placeholder="Год до" [(ngModel)]="filters.yearMax" name="yearMax"
-                           type="number" pattern="^(19|20)\d{2}$">
-                    <mat-error>4 цифры</mat-error>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
-                <mat-form-field>
-                    <mat-select placeholder="Застрощик" [(ngModel)]="filters.developer" name="developer" multiple>
-                        <mat-option *ngFor="let item of developers" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-checkbox [(ngModel)]="filters.newBuilding" name="newBuilding" #newBuilding>Новостройка
-                </mat-checkbox>
-            </div>
-            <!--<div *ngIf="newBuilding.checked" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">-->
-            <!--<mat-form-field fxFlex.gt-xs="200px">-->
-            <!--<mat-select placeholder="Квартал" [(ngModel)]="search.quarter" name="quarter" multiple>-->
-            <!--<mat-option *ngFor="let item of quarters" [value]="item">-->
-            <!--{{item}}-->
-            <!--</mat-option>-->
-            <!--</mat-select>-->
-            <!--</mat-form-field>-->
-            <!--<mat-form-field fxFlex.gt-xs="200px">-->
-            <!--<mat-select placeholder="Ипотека" [(ngModel)]="search.mortgage" name="mortgage" multiple>-->
-            <!--<mat-select-trigger>-->
-            <!--{{search.mortgage ? search.mortgage[0] : ''}}-->
-            <!--<span *ngIf="search.mortgage?.length > 1" style="opacity: 0.75; font-size: 0.75em;">-->
-            <!--(и ещё +{{search.mortgage.length - 1}})</span>-->
-            <!--</mat-select-trigger>-->
-            <!--<mat-option *ngFor="let item of banks" [value]="item">{{item}}</mat-option>-->
-            <!--</mat-select>-->
-            <!--</mat-form-field>-->
-            <!--</div>-->
-            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
-                <mat-form-field fxFlex.gt-xs="23" ngModelGroup="address">
-                    <mat-select placeholder="Этажей в доме" [(ngModel)]="filters.floors" name="floors" multiple>
-                        <mat-option *ngFor="let item of floorsArr" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex.gt-xs="15">
-                    <mat-select placeholder="Этаж" [(ngModel)]="filters.floor" name="floor" multiple>
-                        <mat-option *ngFor="let item of floorsArr" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-select placeholder="Характеристики" [(ngModel)]="filters.feature"
-                                name="feature" multiple>
-                        <mat-optgroup *ngFor="let group of features" [label]="group.name">
-                            <mat-option *ngFor="let item of group.value" [value]="item">
+            <mat-expansion-panel [expanded]="!(isHandset$ | async)" hideToggle="true" #filtersPanel>
+                <mat-expansion-panel-header>
+                    ПОИСК НЕДВИЖИМОСТИ
+                    <!--<span style="color: red">ПОИСК НЕДВИЖИМОСТИ</span>-->
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
+                    <mat-form-field fxFlex.gt-xs="47">
+                        <mat-select placeholder="Категория" [(ngModel)]="filters.category" name="category">
+                            <mat-option *ngFor="let item of categories" [value]="item">
                                 {{item}}
                             </mat-option>
-                        </mat-optgroup>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div>
-                <button mat-button (click)="resetForm()">Очистить</button>
-                <button mat-button color="primary" (click)="onSubmit()">Искать</button>
-            </div>
-            <!--<pre>{{search | json}}</pre>-->
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="47">
+                        <mat-select placeholder="Район" [(ngModel)]="filters.district" name="district" multiple>
+                            <mat-option *ngFor="let item of districts" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <app-address-autocomplete
+                        [address]="filters"
+                        (addressChange)="onAddressChange($event)">
+                </app-address-autocomplete>
+                <app-owner-autocomplete [owner]="filters.owner"
+                                        (value)="filters.owner = $event"></app-owner-autocomplete>
+                <app-manager-autocomplete-form [(manager)]="filters.manager"></app-manager-autocomplete-form>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <input matInput placeholder="Площадь от" [(ngModel)]="filters.areaMin" name="areaMin"
+                               type="number">
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <input matInput placeholder="Площадь до" [(ngModel)]="filters.areaMax" name="areaMax"
+                               type="number">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <input matInput placeholder="Цена от" [(ngModel)]="filters.priceMin" name="priceMin"
+                               type="number">
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <input matInput placeholder="Цена до" [(ngModel)]="filters.priceMax" name="priceMax"
+                               type="number">
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="filtersPanel.expanded">
+                <mat-expansion-panel-header>
+                    Детали
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <mat-select placeholder="Комнаты" [(ngModel)]="filters.rooms" name="rooms" multiple>
+                            <mat-option *ngFor="let item of roomsArr" [value]="item">
+                                {{item | rooms}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <mat-select placeholder="Тип" [(ngModel)]="filters.buildingType" name="buildingType" multiple>
+                            <mat-option *ngFor="let item of buildingTypes" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <input matInput placeholder="Год от" [(ngModel)]="filters.yearMin" name="yearMin"
+                               type="number" pattern="^(19|20)\d{2}$">
+                        <mat-error>4 цифры</mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="23">
+                        <input matInput placeholder="Год до" [(ngModel)]="filters.yearMax" name="yearMax"
+                               type="number" pattern="^(19|20)\d{2}$">
+                        <mat-error>4 цифры</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
+                    <mat-form-field>
+                        <mat-select placeholder="Застрощик" [(ngModel)]="filters.developer" name="developer" multiple>
+                            <mat-option *ngFor="let item of developers" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-checkbox [(ngModel)]="filters.newBuilding" name="newBuilding" #newBuilding>Новостройка
+                    </mat-checkbox>
+                </div>
+                <!--<div *ngIf="newBuilding.checked" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">-->
+                <!--<mat-form-field fxFlex.gt-xs="200px">-->
+                <!--<mat-select placeholder="Квартал" [(ngModel)]="search.quarter" name="quarter" multiple>-->
+                <!--<mat-option *ngFor="let item of quarters" [value]="item">-->
+                <!--{{item}}-->
+                <!--</mat-option>-->
+                <!--</mat-select>-->
+                <!--</mat-form-field>-->
+                <!--<mat-form-field fxFlex.gt-xs="200px">-->
+                <!--<mat-select placeholder="Ипотека" [(ngModel)]="search.mortgage" name="mortgage" multiple>-->
+                <!--<mat-select-trigger>-->
+                <!--{{search.mortgage ? search.mortgage[0] : ''}}-->
+                <!--<span *ngIf="search.mortgage?.length > 1" style="opacity: 0.75; font-size: 0.75em;">-->
+                <!--(и ещё +{{search.mortgage.length - 1}})</span>-->
+                <!--</mat-select-trigger>-->
+                <!--<mat-option *ngFor="let item of banks" [value]="item">{{item}}</mat-option>-->
+                <!--</mat-select>-->
+                <!--</mat-form-field>-->
+                <!--</div>-->
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
+                    <mat-form-field fxFlex.gt-xs="23" ngModelGroup="address">
+                        <mat-select placeholder="Этажей в доме" [(ngModel)]="filters.floors" name="floors" multiple>
+                            <mat-option *ngFor="let item of floorsArr" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.gt-xs="15">
+                        <mat-select placeholder="Этаж" [(ngModel)]="filters.floor" name="floor" multiple>
+                            <mat-option *ngFor="let item of floorsArr" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="Характеристики" [(ngModel)]="filters.feature"
+                                    name="feature" multiple>
+                            <mat-optgroup *ngFor="let group of features" [label]="group.name">
+                                <mat-option *ngFor="let item of group.value" [value]="item">
+                                    {{item}}
+                                </mat-option>
+                            </mat-optgroup>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel expanded="true" disabled="true" hideToggle="true" *ngIf="filtersPanel.expanded">
+                <mat-action-row>
+                    <button mat-button (click)="resetForm()">Очистить</button>
+                    <button mat-button color="primary" (click)="onSubmit()">Искать</button>
+                </mat-action-row>
+            </mat-expansion-panel>
         </div>
     </div>
 </form>

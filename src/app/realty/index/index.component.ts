@@ -30,12 +30,14 @@ export class IndexComponent {
             let cols = 1;
             for (const value of Object.values(breakpoints.breakpoints)) {
                 if (value) {
-                    return side ? cols - 1 : cols;
+                    return side && cols > 1 ? cols - 1 : cols;
                 }
                 cols++;
             }
         })
     );
+
+    showFilterForm = false;
 
     constructor(private breakpointObserver: BreakpointObserver, private realtyService: RealtyService) {
     }

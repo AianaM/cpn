@@ -44,11 +44,4 @@
                               [(ngModel)]="realty.description.text" name="description"></textarea>
     </mat-form-field>
   </ng-container>
-  <div fxLayout="row" fxLayoutAlign="end end">
-    <mat-form-field fxFlex.gt-xs="47">
-      <input matInput placeholder="Цена" [(ngModel)]="realty.price" name="price"
-             type="number">
-      <mat-hint>{{realty.price | currency: 'RUB':'symbol':'4.0-0'}}</mat-hint>
-    </mat-form-field>
-  </div>
 </div>

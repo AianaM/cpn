@@ -16,7 +16,7 @@ export class RealtyFormComponent implements OnInit, OnChanges {
     private _ownerFilter: string;
 
     readonly categories = Realty.categories;
-
+    readonly statuses = Realty.statuses;
 
     constructor(private realtyService: RealtyService, private router: Router) {
     }
@@ -36,6 +36,22 @@ export class RealtyFormComponent implements OnInit, OnChanges {
 
     ownerFilterValue($event) {
         this._ownerFilter = $event;
+    }
+
+    get countedFee() {
+        const fee = this.realty.hiddenInfo.fee ? this.realty.hiddenInfo.fee.trim() : '0';
+
+        if (/^((?!(0))|(\d+(\.|\,)))\d+$/.test(fee)) {
+            this.realty.fee = Number(this.realty.hiddenInfo.fee);
+            return this.realty.fee;
+        }
+        if (/^((?!(0))|(\d+(\.|\,)))\d+%?$/.test(fee)) {
+            const _intFee = Number(this.realty.price || 0) / 100 * Number(parseFloat(fee));
+            this.realty.fee = Math.round(_intFee);
+            return this.realty.fee;
+        }
+        this.realty.fee = null;
+        return this.realty.fee;
     }
 
     onSubmit(form) {

@@ -43,6 +43,7 @@
                 <div><b>{{realty.owner.name}}</b></div>
                 <app-phone [phone]="realty.owner.phone"></app-phone>
             </div>
+            <app-team-card [teamCard]="realty.manager?.teamCard"></app-team-card>
         </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between end">
