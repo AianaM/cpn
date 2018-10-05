@@ -1,20 +1,18 @@
-<div *ngIf="teamCard" fxLayout="row" class="mat-elevation-z2">
+<div *ngIf="teamCard" fxLayout="row">
     <img [src]="teamCard.photo.links.squared_thumbnail | safeResourceUrl"
-         width="253px" style="max-height: 253px; max-width: 253px; flex-shrink: 0;"
-         fxHide.xs="true">
-    <div style="padding: 10px">
+         width="253px" style="max-height: 253px; max-width: 253px; flex-shrink: 0; object-fit: cover; margin-right: 16px"
+         fxHide.xs="true" [fxHide]="small">
+    <div>
         <div fxLayout="row">
             <img [src]="teamCard.photo.links.squared_thumbnail_64 | safeResourceUrl"
-                 width="64px" style="max-height: 64px; max-width: 64px; flex-shrink: 0; margin-right: 10px"
-                 fxShow.xs="true" fxHide>
+                 style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0; object-fit: cover; margin-right: 16px"
+                 fxShow.xs="true" [fxHide]="!small">
             <div>
                 <div><b>{{teamCard.firstName}} {{teamCard.lastName}}</b></div>
                 <div>{{teamCard.team}} {{teamCard.role}}</div>
             </div>
         </div>
-        <div>
-            <div *ngIf="teamCard.email">Email: {{teamCard.email}}</div>
-            <app-phone [phone]="teamCard.phone"></app-phone>
-        </div>
+        <div *ngIf="teamCard.email" style="margin-top: 16px;">Email: {{teamCard.email}}</div>
+        <app-phone [phone]="teamCard.phone"></app-phone>
     </div>
 </div>

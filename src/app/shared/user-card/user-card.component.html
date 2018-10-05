@@ -3,7 +3,7 @@
         <div mat-card-avatar>
             <mat-icon>
                 <img *ngIf="user.photo" [src]="user.photo.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
-                     style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0;">
+                     style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0; object-fit: cover;">
             </mat-icon>
         </div>
         <mat-card-title>{{user.email}}</mat-card-title>

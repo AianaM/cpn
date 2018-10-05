@@ -9,6 +9,7 @@ import {TeamCard} from '../../user/user';
 export class TeamCardComponent implements OnInit {
 
     @Input() teamCard: TeamCard;
+    @Input() small = false;
 
     constructor() {
     }

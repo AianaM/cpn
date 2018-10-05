@@ -31,6 +31,7 @@ import {RealtyFilterFormComponent} from './realty-filter-form/realty-filter-form
 import {AddressAutocompleteComponent} from './address-autocomplete/address-autocomplete.component';
 import {OwnerAutocompleteComponent} from './owner-autocomplete/owner-autocomplete.component';
 import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/manager-autocomplete-form.component';
+import {IfRoleDirective} from './if-role.directive';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/mana
         RealtyFilterFormComponent,
         AddressAutocompleteComponent,
         OwnerAutocompleteComponent,
-        ManagerAutocompleteFormComponent
+        ManagerAutocompleteFormComponent,
+        IfRoleDirective
     ],
     exports: [
         FlexLayoutModule,
@@ -90,7 +92,8 @@ import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/mana
         RealtyFilterFormComponent,
         AddressAutocompleteComponent,
         OwnerAutocompleteComponent,
-        ManagerAutocompleteFormComponent
+        ManagerAutocompleteFormComponent,
+        IfRoleDirective
     ]
 })
 export class SharedModule {

@@ -64,8 +64,9 @@
         </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
         <button mat-button (click)="resetForm()" *ngIf="!realty['@id']">Очистить</button>
+        <span fxFlex></span>
         <button mat-button color="primary" [disabled]="realtyForm.invalid" (click)="onSubmit(realtyForm)">Сохранить</button>
     </div>
 

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
-import {BehaviorSubject, of} from 'rxjs';
+import {BehaviorSubject, combineLatest, of} from 'rxjs';
 import {Realty, RealtyFilter} from './realty';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {MediaObject} from '../media-object/media-object';
@@ -19,9 +19,9 @@ export class RealtyService {
     myRealty = this.newRealty();
     filter = new BehaviorSubject(new RealtyFilter());
 
-    readonly realty$ = this.filter.asObservable().pipe(
+    readonly realty$ = combineLatest(this.auth.currentUser$, this.filter.asObservable()).pipe(
         tap(val => console.log(val)),
-        switchMap(filters => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
+        switchMap(([user, filters]) => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
     );
 
     constructor(private http: HttpClient, public app: AppService, private auth: AuthService) {

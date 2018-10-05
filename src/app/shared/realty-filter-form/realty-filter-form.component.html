@@ -22,13 +22,13 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <app-address-autocomplete
-                        [address]="filters"
-                        (addressChange)="onAddressChange($event)">
-                </app-address-autocomplete>
-                <app-owner-autocomplete [owner]="filters.owner"
-                                        (value)="filters.owner = $event"></app-owner-autocomplete>
-                <app-manager-autocomplete-form [(manager)]="filters.manager"></app-manager-autocomplete-form>
+                <ng-container *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
+                    <app-address-autocomplete [address]="filters"
+                                              (addressChange)="onAddressChange($event)"></app-address-autocomplete>
+                    <app-owner-autocomplete [owner]="filters.owner"
+                                            (value)="filters.owner = $event"></app-owner-autocomplete>
+                    <app-manager-autocomplete-form [(manager)]="filters.manager"></app-manager-autocomplete-form>
+                </ng-container>
                 <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
                     <mat-form-field fxFlex.gt-xs="23">
                         <input matInput placeholder="Площадь от" [(ngModel)]="filters.areaMin" name="areaMin"

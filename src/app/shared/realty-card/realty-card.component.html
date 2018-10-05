@@ -3,7 +3,7 @@
         <mat-tab *ngFor="let photo of realty.mediaObjects">
             <ng-template mat-tab-label>
                 <img [src]="photo.links?.squared_thumbnail_64 | safeResourceUrl" alt="Фото объекта"
-                style="height: 64px; width: 64px;"
+                     style="height: 64px; width: 64px;"
                 >
             </ng-template>
             <img *ngIf="realty.mediaObjects.length" (click)="show()"
@@ -20,12 +20,18 @@
         </div>
 
         <ul>
-            <li> {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}}кв.м.</span>
+            <li> {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}} кв.м. /
+                <ng-container
+                        *ngIf="full && realty.description.balconyArea">{{realty.description.balconyArea}} кв.м.</ng-container>
+            </span>
             </li>
             <li>{{realty.address.type}}, {{realty.address.year }} г.
                 <span *ngIf="realty.address.newBuilding">{{realty.address.description.quarter }}</span>
             </li>
-            <li>{{realty.floor}}/{{realty.address.floors}} этаж</li>
+            <li>{{realty.address.developer}}</li>
+            <li>{{realty.floor}}/{{realty.address.floors}} этаж
+                <span *ngIf="realty.address.description.elevator">лифт</span>
+            </li>
         </ul>
         <p>
             <b>Цена: {{realty.price || 0 | currency: 'RUB':'symbol':'4.0-0'}}</b>
@@ -34,16 +40,32 @@
         </p>
         <p>
             {{realty.updatedAt | date:'short' }} {{status}}
+            <span *ngIf="realty.exclusive">🔐</span>
+            <span *ngIf="realty.hiddenInfo?.haggle">🙏</span>
+            <span *ngIf="realty.fee">💰{{realty.fee | currency: 'RUB':'symbol':'4.0-0'}}</span>
         </p>
         <div *ngIf="full">
-            <p>{{features}}</p>
+            <p>Последний раз обновлялся
+                {{realty.updatedUser.teamCard?.firstName || realty.updatedUser.name?.firstName}}
+            </p>
+            <p>{{features(true)}}</p>
+            <p>{{features()}}</p>
             <p>{{realty.address.description.text}}</p>
             <p>{{realty.description.text}}</p>
+            <div *ngIf="realty.hiddenInfo as info">
+                <ul>
+                    <li>{{realty.cadastralNumber}}, кв. {{info.flat || 'хз'}}, подъезд {{info.entrance || 'не указан'}}</li>
+                    <li *ngIf="info.maternalCapital">Использовался ли МСК при покупке/гашении ипотеки</li>
+                    <li *ngIf="info.shareProperty">Долевая собственность</li>
+                    <li *ngIf="info.ownershipLessThan3years">В собственности менне 3х лет</li>
+                    <li>{{info.note}}</li>
+                </ul>
+            </div>
             <div *ngIf="realty.owner">
                 <div><b>{{realty.owner.name}}</b></div>
                 <app-phone [phone]="realty.owner.phone"></app-phone>
             </div>
-            <app-team-card [teamCard]="realty.manager?.teamCard"></app-team-card>
+            <app-team-card [teamCard]="realty.manager?.teamCard" [small]="true"></app-team-card>
         </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between end">

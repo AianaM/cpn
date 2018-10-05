@@ -1,6 +1,8 @@
 <ul *ngIf="phone">
-  <li *ngFor="let item of phone">
-    <img src="./assets/whatsApp.svg" height="16px" *ngIf="item.whatsApp">
-    {{transform(item.number)}} {{item.type}}
-  </li>
+    <li *ngFor="let item of phone">
+        <span style="display: inline-flex; white-space: pre">
+        <img src="./assets/whatsApp.svg" height="16px" *ngIf="item.whatsApp">
+        {{transform(item.number)}} {{item.type}}
+        </span>
+    </li>
 </ul>

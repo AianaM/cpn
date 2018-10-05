@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Realty} from '../../realty/realty';
+import {Address, Realty} from '../../realty/realty';
 import {Router} from '@angular/router';
 
 @Component({
@@ -18,20 +18,22 @@ export class RealtyCardComponent implements OnInit {
     ngOnInit() {
     }
 
-    get features() {
-        if (!this.realty.description.feature || !Object.keys(this.realty.description.feature).length) {
+    features(address?: boolean) {
+        const feature = address ? this.realty.address.description.feature : this.realty.description.feature;
+        const featuresGroups = address ? Address.features : Realty.features;
+        if (!feature || !Object.keys(feature).length) {
             return;
         }
         let text = '';
-        for (const feature of Realty.features) {
+        for (const _feature of featuresGroups) {
             let list = [];
-            for (const value of feature.value) {
-                if (this.realty.description.feature.includes(value)) {
+            for (const value of _feature.value) {
+                if (feature.includes(value)) {
                     list.push(value);
                 }
             }
             text += list.length && text ? '. ' : '';
-            text += list.length ? `${feature.name}: ${list.join(', ')}` : '';
+            text += list.length ? `${_feature.name}: ${list.join(', ')}` : '';
             list = [];
         }
         return text;
