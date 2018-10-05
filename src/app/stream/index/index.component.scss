@@ -1,0 +1,15 @@
+.mat-list .mat-list-item.mat-2-line, .mat-list .mat-list-option.mat-2-line, .mat-nav-list .mat-list-item.mat-2-line, .mat-nav-list .mat-list-option.mat-2-line, .mat-selection-list .mat-list-item.mat-2-line, .mat-selection-list .mat-list-option.mat-2-line,
+.mat-list .mat-list-item.mat-list-item-with-avatar, .mat-list .mat-list-option.mat-list-item-with-avatar, .mat-nav-list .mat-list-item.mat-list-item-with-avatar, .mat-nav-list .mat-list-option.mat-list-item-with-avatar, .mat-selection-list .mat-list-item.mat-list-item-with-avatar, .mat-selection-list .mat-list-option.mat-list-item-with-avatar,
+.mat-list .mat-list-item, .mat-list .mat-list-option, .mat-nav-list .mat-list-item, .mat-nav-list .mat-list-option, .mat-selection-list .mat-list-item, .mat-selection-list .mat-list-option {
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.mat-list .mat-list-item .mat-line, .mat-nav-list .mat-list-item .mat-line, .mat-selection-list .mat-list-item .mat-line,
+.mat-list .mat-list-item .mat-line, .mat-nav-list .mat-list-item .mat-line, .mat-selection-list .mat-list-item .mat-line {
+  white-space: normal;
+}
+
+.mat-list .mat-list-item .mat-list-avatar, .mat-list .mat-list-option .mat-list-avatar, .mat-nav-list .mat-list-item .mat-list-avatar, .mat-nav-list .mat-list-option .mat-list-avatar, .mat-selection-list .mat-list-item .mat-list-avatar, .mat-selection-list .mat-list-option .mat-list-avatar {
+  align-self: flex-start;
+}

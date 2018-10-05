@@ -1,0 +1,107 @@
+<section style="max-width: 900px; margin: auto;">
+    <h1 class="mat-display-3">О нас</h1>
+    <article>
+        "общая фотография, вся команда. Все улыбаются."
+        <div style="margin-top: 30px" class="anna">
+            <div fxLayout="row">
+                <img src="./assets/anna.jpg" fxFlex="30" style="object-fit: cover">
+                <blockquote fxFlex="70">
+                    <p>
+                        Главная цель, для достижения которой я и мои коллеги приходим каждый день на работу - дать
+                        жителям
+                        республики возможность улучшать свои жилищные условия, приобретая красивые и удобные для жизни
+                        квартиры.
+                        Я
+                        работаю в этой сфере уже больше семи лет и могу без ложной скромности сказать, что знаю
+                        достаточно,
+                        чтобы
+                        помочь вам приобрести квартиру вашей мечты". У нас в ЦПН «Республика» есть правило: мы продаем
+                        только
+                        то,
+                        что купили бы сами!
+                    </p>
+                    <footer fxLayout="row" fxLayoutAlign="start center">
+                        <!--<img src="./assets/anna.jpg"-->
+                        <!--style="height: 100px; width: 100px; border-radius: 50%; flex-shrink: 0; object-fit: cover;-->
+                        <!--margin-right: 16px">-->
+                        <cite>Анна Соломонова – основатель компании, руководитель.</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+        <div style="margin-top: 30px">
+            <div fxLayout="row">
+                <!--<img src="./assets/anna.jpg" fxFlex="30" style="object-fit: cover">-->
+                <p fxFlex="30">"Фото второго основателя компании"</p>
+                <blockquote fxFlex="70">
+                    <p>
+                        его слова
+                    </p>
+                    <footer fxLayout="row" fxLayoutAlign="start center">
+                        <!--<img src="./assets/anna.jpg"-->
+                        <!--style="height: 100px; width: 100px; border-radius: 50%; flex-shrink: 0; object-fit: cover;-->
+                        <!--margin-right: 16px">-->
+                        <cite>"руководитель, имя"</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+    </article>
+    <article *ngIf="team$ | async as team">
+        <h2>ЭКСПЕРТЫ ПО НЕДВИЖИМОСТИ</h2>
+        <div fxLayout="row wrap" fxLayoutAlign="start space-around" fxLayoutGap="16px" *ngFor="let group of team">
+            <div *ngFor="let teammate of group" fxLayout="row" fxFlex.gt-xs="45" class="team">
+                <img [src]="teammate.teamCard.photo.links.squared_thumbnail | safeResourceUrl"
+                     style="height: 100px; width: 100px; border-radius: 50%; flex-shrink: 0; object-fit: cover; margin-right: 16px">
+                <div>
+                    <div><b>{{teammate.teamCard.firstName}} {{teammate.teamCard.lastName}}</b></div>
+                    <div>{{teammate.teamCard.team}} {{teammate.teamCard.role}}</div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article>
+        <h2>Виды деятельности агентства</h2>
+        <ul>
+            <li>покупка и продажа жилья в Якутске на первичном рынке;</li>
+            <li>покупка, продажа, обмен жилья в Якутске на вторичном рынке;</li>
+            <li>ипотечное кредитование;</li>
+            <li>коммерческая недвижимость;</li>
+        </ul>
+    </article>
+    <article>
+        <h2>ИПОТЕКА</h2>
+        <p>Мечтаете о собственной квартире, но средств на приобретение жилья не хватает?</p>
+        <p>Вы задумываетесь об ипотеке?</p>
+        <p>
+            Наши специалисты помогут Вам быстро и выгодно решить жилищный вопрос.
+        </p>
+        <p>Обращаясь к нам для решения своего жилищного вопроса, вы имеете возможность получить более привлекательные
+            (и
+            более
+            выгодные) условия по ипотечному кредитованию.</p>
+        <p><b>ЦПН «Республика»</b> выбирает для вас лучшие предложения банков и новостройки, которые точно введутся в срок -
+            работа
+            ведется только с надежными застройщиками.
+            Агентство на рынке уже семь лет и за это время мы наладили персональные отношения с подрядными организациями
+            и
+            застройщиками, что позволяет предлагать нашим клиентам самые выгодные предложения.
+        </p>
+        <p>Скажу больше - в нашей
+            базе
+            есть
+            застройщики, которые работают только с нами, так как ЦПН «Республика» смогла завоевать их доверие за много
+            лет
+            совместной работы.</p>
+        <p>
+            В 2016 году мы вошли в тройку лидеров по объему выдачи ипотечных продуктов <b>Сбербанка</b>. Это и стало причиной
+            того,
+            что
+            у нас в офисе всегда присутствует менеджер банка и вы можете оформить все необходимые документы прямо у нас.
+            Кроме
+            нас, аналогичную услугу в городе практически никто не предлагает. Мы одобряем ипотеку более чем 90% случаев.
+        </p>
+        <p>
+            Остались вопросы? <b>Позвоните по телефону 8914-2-725-260</b> наши специалисты свяжутся с вами для подбора выгодных
+            условий.
+        </p>
+    </article>
+</section>

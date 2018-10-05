@@ -1,0 +1,25 @@
+<form #searchForm="ngForm" *ngIf="filter">
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2%">
+        <mat-form-field fxFlex.gt-xs="30">
+            <mat-select placeholder="Категория" [(ngModel)]="filter.item" name="item">
+                <mat-option *ngFor="let item of items" [value]="item.value">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex.gt-xs="30">
+            <mat-select placeholder="Действие" [(ngModel)]="filter.action" name="action">
+                <mat-option *ngFor="let item of actions" [value]="item.value">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex.gt-xs="30">
+            <input matInput placeholder="Идентификатор" [(ngModel)]="filter.itemId" name="id" type="number">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button (click)="resetForm()">Очистить</button>
+        <button mat-button color="primary" (click)="onSubmit()">Искать</button>
+    </div>
+</form>

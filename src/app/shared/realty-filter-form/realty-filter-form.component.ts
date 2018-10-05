@@ -42,11 +42,11 @@ export class RealtyFilterFormComponent implements OnInit {
         this.filters.number = event.number;
     }
 
-    onSubmit() {
-        this.realtyService.filter.next(this.filters);
-    }
-
     resetForm() {
         this.realtyService.filter.next(new RealtyFilter());
+    }
+
+    onSubmit() {
+        this.realtyService.filter.next(this.filters);
     }
 }

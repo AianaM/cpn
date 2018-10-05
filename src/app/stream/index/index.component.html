@@ -1,0 +1,35 @@
+<mat-nav-list fxFlex="600px" fxFlex.xs="100" style="margin: auto;" *ngIf="stream">
+    <app-stream-filter-form></app-stream-filter-form>
+    <mat-list-item *ngFor="let _stream of stream">
+        <img *ngIf="_stream.createdUser; else anonFace" fxFlexAlign="start" matListAvatar
+             [routerLink]="['/user', _stream.createdUser.id]"
+             [src]="_stream.createdUser.photo.links.squared_thumbnail | safeResourceUrl"
+             alt="{{_stream.createdUser.name?.firstName}} avatar">
+        <h3 matLine *ngIf="_stream.createdUser; else anonName"> {{_stream.createdUser.name?.firstName}}
+            <span class="mutted">({{_stream.createdUser.email}})</span>
+        </h3>
+        <div matLine fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayout.xs="column"
+             fxLayoutAlign.xs="start stretch">
+            <app-realty-card *ngIf="_stream.item === 'Realty'" [realty]="_stream.snapshot"
+                             [full]="true"></app-realty-card>
+            <div [routerLink]="['/user/profile/', _stream.snapshot.id]" *ngIf="_stream.item === 'User'">
+                {{_stream.snapshot.id}}
+                {{_stream.snapshot.email}}
+            </div>
+            <!--<app-user-card [routerLink]="['/user/profile/', _stream.snapshot.id]" *ngIf="_stream.item === 'User'" [user]="_stream.snapshot"></app-user-card>-->
+
+            <ng-container *ngIf="_stream.item !== 'Realty' && _stream.item !== 'User'">
+                <div> {{_stream.action}} / {{_stream.itemId}} / {{_stream.item}}</div>
+                <!--<pre>{{_stream.snapshot | json}}</pre>-->
+            </ng-container>
+            <span fxFlex style="text-align: right"> {{_stream.createdAt | date: 'short'}} </span>
+        </div>
+    </mat-list-item>
+</mat-nav-list>
+<ng-template #anonFace>
+    <mat-icon matListAvatar>face</mat-icon>
+</ng-template>
+<ng-template #anonName>
+    <h3 matLine> .anon
+    </h3>
+</ng-template>

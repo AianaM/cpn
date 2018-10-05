@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth.service';
+import {StreamService} from '../stream.service';
 
 @Component({
     selector: 'app-index',
@@ -8,15 +8,12 @@ import {AuthService} from '../auth.service';
 })
 export class IndexComponent implements OnInit {
 
-    currentUser;
+    stream: any;
 
-    constructor(private auth: AuthService) {
+    constructor(private streamService: StreamService) {
     }
 
     ngOnInit() {
-        this.auth.currentUser$.subscribe(user => {
-            this.currentUser = user;
-        });
+        this.streamService.stream$.subscribe(val => this.stream = val['hydra:member']);
     }
-
 }

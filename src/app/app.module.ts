@@ -12,12 +12,13 @@ import {NavComponent} from './nav/nav.component';
 import {IndexComponent} from './index/index.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiInterceptor} from './user/api-interceptor';
+import {AboutComponent} from './about/about.component';
 
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
     declarations: [
-        AppComponent, NavComponent, IndexComponent
+        AppComponent, NavComponent, IndexComponent, AboutComponent
     ],
     imports: [
         BrowserModule,

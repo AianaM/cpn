@@ -1,0 +1,52 @@
+@import "~src/styles";
+
+blockquote {
+  margin: 0;
+  padding: 30px 30px 30px 60px;
+  border-left: 8px solid $primary;
+  position: relative;
+  font-weight: 300;
+}
+blockquote:before{
+  content: "\201C";
+  color: $primary;
+  font-size: 70px;
+  position: absolute;
+  left: 15px;
+  top: 5px;
+}
+blockquote p {
+  font-size: 1.3em;
+  margin-top: 0;
+}
+
+cite {
+  font-weight: 500;
+}
+
+.anna blockquote{
+  border-left: 8px solid $accent;
+}
+
+.anna blockquote:before {
+  color: $accent;
+}
+
+ul {
+  font-size: 1.3em;
+  margin-left: 30px;
+  list-style: square;
+  padding: 20px;
+}
+
+.team {
+  margin-top: 16px;
+}
+
+.team:first-child {
+  margin-top: 0;
+}
+
+article{
+  margin-bottom: 30px;
+}

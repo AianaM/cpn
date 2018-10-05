@@ -1,3 +1,5 @@
+@import "~src/styles";
+
 .sidenav-container {
   height: 100%;
 }
@@ -44,4 +46,10 @@
   z-index: 9;
   top: 14px;
   right: 3px;
+}
+
+footer{
+  color: white;
+  background: $primary;
+  padding: 30px;
 }

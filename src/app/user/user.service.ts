@@ -4,7 +4,7 @@ import {AuthService} from './auth.service';
 import {AppService} from '../app.service';
 import {HttpClient} from '@angular/common/http';
 import {filter, first, map, mergeMap, switchMap, tap} from 'rxjs/operators';
-import {Phone, User} from './user';
+import {User} from './user';
 import {of} from 'rxjs';
 
 @Injectable({
@@ -33,6 +33,10 @@ export class UserService {
             filter(user => user && (user.roles.includes('ROLE_ADMIN') || user.roles.includes('ROLE_MANAGER'))),
             switchMap(() => this.http.get<User>(`${this.api}/users/${id}`))
         ) : this.currentUser$;
+    }
+
+    getUsers() {
+        return this.http.get(`${this.api}/users`);
     }
 
     private saveRoles(data: User) {

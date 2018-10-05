@@ -49,7 +49,31 @@
                 {{link.label}}
             </a>
         </nav>
-        <ng-content></ng-content>
+        <div style="min-height: 100vh;">
+            <ng-content></ng-content>
+        </div>
+        <footer [fxLayout.lt-md]="side.opened ? 'column' : 'row wrap'" fxLayout="row" fxLayoutGap="16px">
+            <div>
+                <p><b>Контакты: </b><span style="display: inline-flex; white-space: pre">
+                    <img src="./assets/whatsApp.svg" height="16px"> 8914-2-725-260</span></p>
+                <p><b>Адрес: </b> г. Якутск, ул. Орджоникидзе 17, офис 205</p>
+                <p><b>Режим работы: </b> пн. - пт.: 10-18 ч.</p>
+            </div>
+            <div fxFlex="grow">
+                <p>Мечтаете о собственной квартире, но средств на приобретение жилья не хватает?</p>
+                <p>Вы задумываетесь об ипотеке?</p>
+                <p>
+                    Наши специалисты помогут Вам быстро и выгодно решить жилищный вопрос.
+                </p>
+                <p>Обращаясь к нам для решения своего жилищного вопроса, вы имеете возможность получить более
+                    привлекательные
+                    (и
+                    более
+                    выгодные) условия по ипотечному кредитованию.</p>
+                <p><b>Позвоните по телефону 8914-2-725-260</b> наши специалисты свяжутся с вами для подбора выгодных
+                    условий.</p>
+            </div>
+        </footer>
     </mat-sidenav-content>
 </mat-sidenav-container>
 
