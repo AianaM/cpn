@@ -1,0 +1,20 @@
+<div *ngFor="let groups of realtyGroups" [class.grid-container]="(cols$ | async) != 1">
+    <ng-container *ngIf="groups.realty.length">
+        <h1>{{groups.title}}</h1>
+        <mat-grid-list [cols]="(cols$ | async) || 1" rowHeight="1:1.5">
+            <mat-grid-tile *ngFor="let realty of groups.realty" class="grid-tile">
+                <mat-grid-tile-header>
+                    <div fxLayout="column" fxLayoutAlign="center start" fxFlex>
+                        <span *ngIf="!realty.address.name">{{realty.address.street}}, {{realty.address.number}}</span>
+                        <b *ngIf="realty.address.name">"{{realty.address.name}}"</b>
+                        <div>{{realty.address.district}}</div>
+                    </div>
+                    <button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', realty.id] } }]">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-grid-tile-header>
+                <app-realty-card [realty]="realty"></app-realty-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ng-container>
+</div>

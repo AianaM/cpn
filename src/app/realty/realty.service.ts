@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
-import {BehaviorSubject, combineLatest, of} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, of, zip} from 'rxjs';
 import {Realty, RealtyFilter} from './realty';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {MediaObject} from '../media-object/media-object';
@@ -15,7 +15,6 @@ import {AuthService} from '../user/auth.service';
 export class RealtyService {
     private readonly api = environment.api;
 
-    // myRealty = new Realty();
     myRealty = this.newRealty();
     filter = new BehaviorSubject(new RealtyFilter());
 
@@ -170,5 +169,23 @@ export class RealtyService {
         }
 
         return this.http.post(`${this.api}/media_objects/multi`, formData);
+    }
+
+    get newBuildings$() {
+        return this.http.get(`${this.api}/addresses?newBuilding=true`);
+    }
+
+    get indexGroups$(): Observable<{ title: string, realty: Realty[] }[]> {
+        return zip(
+            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=10`),
+            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=10`),
+        ).pipe(
+            map(([first, second]) => {
+                return [
+                    {title: 'Квартиры в новостройках', realty: first['hydra:member']},
+                    {title: 'Готовое жильё', realty: second['hydra:member']}
+                ];
+            })
+        );
     }
 }

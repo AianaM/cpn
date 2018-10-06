@@ -1,0 +1,37 @@
+.grid-container {
+  margin: 10px;
+}
+
+:host /deep/ .grid-container .grid-tile .mat-card {
+  left: 5px;
+  right: 5px;
+  bottom: 10px;
+}
+
+:host /deep/ .grid-tile .mat-card {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  max-width: 100%;
+  place-content: stretch flex-start;
+  align-items: stretch;
+}
+
+:host /deep/ .grid-tile .mat-card .mat-card-content{
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.mat-grid-tile-header {
+  z-index: 2;
+  margin: 2px 0;
+}
+.grid-container .mat-grid-tile-header {
+  margin: 2px;
+}

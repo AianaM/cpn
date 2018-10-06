@@ -32,6 +32,8 @@ import {AddressAutocompleteComponent} from './address-autocomplete/address-autoc
 import {OwnerAutocompleteComponent} from './owner-autocomplete/owner-autocomplete.component';
 import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/manager-autocomplete-form.component';
 import {IfRoleDirective} from './if-role.directive';
+import {RealtyGridComponent} from './realty-grid/realty-grid.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     imports: [
@@ -47,7 +49,9 @@ import {IfRoleDirective} from './if-role.directive';
         MatCardModule,
         MatAutocompleteModule,
         MatTabsModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatGridListModule,
+        RouterModule
     ],
     declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
         LogoComponent,
@@ -57,7 +61,8 @@ import {IfRoleDirective} from './if-role.directive';
         AddressAutocompleteComponent,
         OwnerAutocompleteComponent,
         ManagerAutocompleteFormComponent,
-        IfRoleDirective
+        IfRoleDirective,
+        RealtyGridComponent
     ],
     exports: [
         FlexLayoutModule,
@@ -93,7 +98,8 @@ import {IfRoleDirective} from './if-role.directive';
         AddressAutocompleteComponent,
         OwnerAutocompleteComponent,
         ManagerAutocompleteFormComponent,
-        IfRoleDirective
+        IfRoleDirective,
+        RealtyGridComponent
     ]
 })
 export class SharedModule {
