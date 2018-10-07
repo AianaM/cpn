@@ -32,7 +32,7 @@ export class Address {
         mortgage: string[];
         elevator: boolean;
         feature: string[];
-        text: string;
+        text: string
     } = {
         quarter: null,
         mortgage: [],

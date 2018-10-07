@@ -1,0 +1,32 @@
+<img [src]="mediaObject.links.thumbnail_1080 | safeResourceUrl" class="photo">
+<mat-dialog-content>
+    <ul>
+        <li>{{mediaObject.id}}</li>
+        <li>{{mediaObject.contentURL}}</li>
+        <li>{{mediaObject.file}}</li>
+        <li>{{mediaObject.imageSize}}</li>
+        <li>{{mediaObject.createdAt | date:'short'}}</li>
+        <li>{{mediaObject.createdUser?.teamCard?.firstName || mediaObject.createdUser?.name?.firstName}}</li>
+        <li>{{mediaObject.tags | json}}</li>
+        <!--<li>{{mediaObject.links | json}}</li>-->
+        <li *ngIf="mediaObject.users?.length">
+            <h4>Пользователи</h4>
+            <mat-selection-list>
+                <mat-list-option *ngFor="let user of mediaObject.users">
+                    {{user.name?.firstName}} {{user.teamCard?.firstName}}
+                </mat-list-option>
+            </mat-selection-list>
+        <li *ngIf="mediaObject.realties?.length">
+        <mat-selection-list>
+            <h4>Недвижимость</h4>
+            <mat-list-option *ngFor="let realty of mediaObject.realties">
+                {{realty.id}} {{realty.address.street}} {{realty.address.number}}
+            </mat-list-option>
+        </mat-selection-list>
+    </li>
+    </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button *ngIf="helper" mat-button [mat-dialog-close]="mediaObject">Прикрепить</button>
+</mat-dialog-actions>

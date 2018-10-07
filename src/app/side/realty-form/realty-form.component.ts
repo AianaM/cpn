@@ -38,6 +38,11 @@ export class RealtyFormComponent implements OnInit, OnChanges {
         this._ownerFilter = $event;
     }
 
+    get mediaTags() {
+        return this.realty.address.street && this.realty.address.number ? `${this.realty.address.street}, ${this.realty.address.number}`
+            : null;
+    }
+
     get countedFee() {
         const fee = this.realty.hiddenInfo.fee ? this.realty.hiddenInfo.fee.trim() : '0';
 

@@ -15,7 +15,7 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSelectModule,
-    MatCheckboxModule, MatTabsModule, MatGridListModule, MatExpansionModule, MatAutocompleteModule
+    MatCheckboxModule, MatTabsModule, MatGridListModule, MatExpansionModule, MatAutocompleteModule, MatDialogModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
@@ -34,6 +34,8 @@ import {ManagerAutocompleteFormComponent} from './manager-autocomplete-form/mana
 import {IfRoleDirective} from './if-role.directive';
 import {RealtyGridComponent} from './realty-grid/realty-grid.component';
 import {RouterModule} from '@angular/router';
+import {MediaObjectHelperComponent} from './media-object-helper/media-object-helper.component';
+import { MediaObjectDialogComponent } from './media-object-dialog/media-object-dialog.component';
 
 @NgModule({
     imports: [
@@ -51,6 +53,8 @@ import {RouterModule} from '@angular/router';
         MatTabsModule,
         MatExpansionModule,
         MatGridListModule,
+        MatDialogModule,
+        MatListModule,
         RouterModule
     ],
     declarations: [SafeUrlPipe, PhoneFormComponent, TeamCardComponent, PhoneComponent, UserCardComponent,
@@ -62,7 +66,9 @@ import {RouterModule} from '@angular/router';
         OwnerAutocompleteComponent,
         ManagerAutocompleteFormComponent,
         IfRoleDirective,
-        RealtyGridComponent
+        RealtyGridComponent,
+        MediaObjectHelperComponent,
+        MediaObjectDialogComponent
     ],
     exports: [
         FlexLayoutModule,
@@ -99,7 +105,11 @@ import {RouterModule} from '@angular/router';
         OwnerAutocompleteComponent,
         ManagerAutocompleteFormComponent,
         IfRoleDirective,
-        RealtyGridComponent
+        RealtyGridComponent,
+        MediaObjectHelperComponent
+    ],
+    entryComponents: [
+        MediaObjectDialogComponent
     ]
 })
 export class SharedModule {

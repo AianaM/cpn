@@ -6,7 +6,7 @@
                      style="height: 64px; width: 64px;"
                 >
             </ng-template>
-            <img *ngIf="realty.mediaObjects.length" (click)="show()"
+            <img (click)="show(photo)"
                  [src]="photo.links?.squared_thumbnail | safeResourceUrl" alt="Фото объекта">
         </mat-tab>
     </mat-tab-group>

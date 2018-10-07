@@ -32,6 +32,7 @@
         <app-phone-form [phone]="realty.owner.phone"></app-phone-form>
     </div>
     <app-media-object-form [mediaObjects]="realty.mediaObjects"></app-media-object-form>
+    <app-media-object-helper [tags]="mediaTags" (mediaObject)="realty.mediaObjects.push($event)"></app-media-object-helper>
     <app-manager-autocomplete-form [(manager)]="realty.manager"></app-manager-autocomplete-form>
 
     <mat-form-field>

@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Address, Realty} from '../../realty/realty';
 import {Router} from '@angular/router';
+import {MediaObjectService} from '../../media-object/media-object.service';
+import {MediaObject} from '../../media-object/media-object';
 
 @Component({
     selector: 'app-realty-card',
@@ -12,7 +14,7 @@ export class RealtyCardComponent implements OnInit {
     @Input() realty: Realty;
     @Input() full: false;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private mediaObjectService: MediaObjectService) {
     }
 
     ngOnInit() {
@@ -43,7 +45,10 @@ export class RealtyCardComponent implements OnInit {
         return Realty.statusIcon(this.realty.status);
     }
 
-    show() {
+    show(mediaObject: MediaObject) {
+        if (this.full) {
+            return this.mediaObjectService.openDialog(mediaObject);
+        }
         this.router.navigate([{outlets: {side: ['show', this.realty.id]}}]);
     }
 }

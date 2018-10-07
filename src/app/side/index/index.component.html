@@ -10,14 +10,14 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <ng-template matExpansionPanelContent>
+            <ng-template matExpansionPanelContent *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
                 <app-realty-form [realty]="realty"></app-realty-form>
             </ng-template>
         </mat-expansion-panel>
 
         <span></span>
     </mat-tab>
-    <mat-tab label="NEW">
+    <mat-tab label="NEW" *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
         <ng-template matTabContent>
             <mat-card>
                 <mat-card-content>

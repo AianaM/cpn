@@ -4,7 +4,6 @@ import {environment} from '../../environments/environment';
 import {BehaviorSubject} from 'rxjs';
 import {StreamFilter} from './stream';
 import {switchMap} from 'rxjs/operators';
-import {RealtyFilter} from '../realty/realty';
 
 @Injectable({
     providedIn: 'root'
@@ -15,13 +14,13 @@ export class StreamService {
     filter = new BehaviorSubject(new StreamFilter());
 
     readonly stream$ = this.filter.asObservable().pipe(
-        switchMap(filters => this.http.get(`${this.api}/streams${this.generateSearchURL(filters)}`))
+        switchMap(filter => this.http.get(`${this.api}/streams${this.generateSearchURL(filter)}`))
     );
 
     constructor(private http: HttpClient) {
     }
 
-    private generateSearchURL(filters: RealtyFilter): string {
+    private generateSearchURL(filters: StreamFilter): string {
         let url = '';
         if (!filters) {
             return '';
