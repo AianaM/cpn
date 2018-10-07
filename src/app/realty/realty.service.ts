@@ -3,8 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, combineLatest, Observable, of, zip} from 'rxjs';
-import {Realty, RealtyFilter} from './realty';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {Address, Realty, RealtyFilter} from './realty';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {MediaObject} from '../media-object/media-object';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {AuthService} from '../user/auth.service';
@@ -18,7 +18,11 @@ export class RealtyService {
     myRealty = this.newRealty();
     filter = new BehaviorSubject(new RealtyFilter());
 
-    readonly realty$ = combineLatest(this.auth.currentUser$, this.filter.asObservable()).pipe(
+    currentUser$ = this.auth.currentUser$.pipe(
+        filter(user => user !== undefined)
+    );
+
+    readonly realty$ = combineLatest(this.currentUser$, this.filter.asObservable()).pipe(
         tap(val => console.log(val)),
         switchMap(([user, filters]) => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
     );
@@ -107,46 +111,35 @@ export class RealtyService {
             return phone;
         });
 
-        const indexes = [];
+        data.mediaObjects = realty.mediaObjects.filter(media => !media.file);
+
+        data.address.mediaObjects = realty.address.mediaObjects.filter(media => !media.file);
 
         const files = () => {
-            const _files = [];
-            realty.mediaObjects.forEach((media, i) => {
-                if (media.file) {
-                    media.realties = [{id: data.id} as Realty];
-                    media.tags = [];
-                    media.tags.push(`${data.address.street}, ${data.address.number}`);
-                    if (data.rooms) {
-                        media.tags.push(`${data.rooms} комн.`);
-                    }
-                    _files.push(media);
-                    indexes.push(i);
+            const _files = realty.mediaObjects.filter(media => media.file).map(media => {
+                media.realties = [{id: data.id} as Realty];
+                media.tags = [];
+                media.tags.push(`${data.address.street}, ${data.address.number}`);
+                if (data.rooms) {
+                    media.tags.push(`${data.rooms} комн.`);
                 }
+                return media;
             });
-            return _files;
+            const _addressFiles = realty.address.mediaObjects.filter(media => media.file).map(media => {
+                media.addresses = [{id: data.address.id} as Address];
+                media.tags = [`${data.address.street}, ${data.address.number}`];
+                console.log(media);
+                return media;
+            });
+            return _files.concat(_addressFiles);
         };
-        let _request;
-        if (data.id) {
-            _request = this.saveMedia(files()).pipe(switchMap(media => {
-                media['hydra:member'].forEach((value, index) => {
-                    const _index = indexes[index];
-                    data.mediaObjects[_index] = value;
-                });
-                return this.http.put(`${this.api}/realties/${data.id}`, data);
-            }));
-        } else {
-            data.mediaObjects = [];
-            _request = this.http.post(`${this.api}/realties`, data).pipe(
-                tap((result: Realty) => data = result),
-                switchMap(() => this.saveMedia(files())),
-                map(media => {
-                    data.mediaObjects = media['hydra:member'];
-                    return data;
-                })
-            );
-        }
-
-        return _request.pipe(tap((result: Realty) => {
+        return of(true).pipe(
+            switchMap(() => data.id ? this.http.put(`${this.api}/realties/${data.id}`, data)
+                : this.http.post(`${this.api}/realties`, data)),
+            tap((result: Realty) => data = result),
+            switchMap(() => this.saveMedia(files())),
+            map(() => data)
+        ).pipe(tap((result: Realty) => {
             this.filter.next(this.filter.getValue());
         }));
     }
@@ -165,6 +158,9 @@ export class RealtyService {
             for (const realty of media.realties || []) {
                 formData.append(`mediaObjects[${i}][realties][]`, realty.id);
             }
+            for (const address of media.addresses || []) {
+                formData.append(`mediaObjects[${i}][addresses][]`, `${address.id}`);
+            }
             i++;
         }
 
@@ -176,10 +172,11 @@ export class RealtyService {
     }
 
     get indexGroups$(): Observable<{ title: string, realty: Realty[] }[]> {
-        return zip(
-            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=10`),
-            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=10`),
-        ).pipe(
+        return combineLatest(this.currentUser$, this.filter.asObservable()).pipe(
+            switchMap(() => zip(
+                this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=10`),
+                this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=10`),
+            )),
             map(([first, second]) => {
                 return [
                     {title: 'Квартиры в новостройках', realty: first['hydra:member']},

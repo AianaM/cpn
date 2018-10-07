@@ -38,10 +38,6 @@ export class MediaObjectHelperComponent implements OnInit, OnChanges {
 
     show(media) {
         const dialogRef = this.mediaObjectService.openDialog(media, true);
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`); // Pizza!
-
-            this.mediaObject.emit(result);
-        });
+        dialogRef.afterClosed().subscribe(result => this.mediaObject.emit(result));
     }
 }

@@ -102,6 +102,9 @@
                   name="text"></textarea>
             </mat-form-field>
         </div>
+        <app-media-object-form [mediaObjects]="address.mediaObjects"></app-media-object-form>
+        <app-media-object-helper [tags]="mediaTags" (mediaObject)="address.mediaObjects.push($event)"></app-media-object-helper>
+
         <!--<pre>{{address | json}}</pre>-->
     </div>
 </ng-container>

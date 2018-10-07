@@ -27,6 +27,10 @@ export class AddressFormComponent implements OnInit {
     ngOnInit() {
     }
 
+    get mediaTags() {
+        return this.address.street && this.address.number ? `${this.address.street}, ${this.address.number}` : null;
+    }
+
     setAddress(event) {
         this.addressChange.emit(event || new Address());
     }

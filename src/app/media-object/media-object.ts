@@ -1,4 +1,4 @@
-import {Realty} from '../realty/realty';
+import {Address, Realty} from '../realty/realty';
 import {User} from '../user/user';
 
 export class MediaObject {
@@ -11,6 +11,7 @@ export class MediaObject {
     tags: string[];
     users: any;
     realties: Realty[];
+    addresses: Address[];
     links: {
         squared_thumbnail: string;
         squared_thumbnail_64: string;
