@@ -9,6 +9,7 @@ import {Address} from '../../realty/realty';
 export class AddressCardComponent implements OnInit {
     @Input() address: Address;
     @Input() show: 'flat' | 'tiny' | 'full' = 'tiny';
+    @Input() hideActions = false;
 
     constructor() {
     }

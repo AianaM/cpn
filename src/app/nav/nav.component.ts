@@ -19,18 +19,24 @@ export class NavComponent implements OnInit {
     user: User;
     loadState$ = this.auth.app.loaderState$;
 
-    navLinks = [
-        {path: '/index', label: 'Главная'},
-        {path: '/stream', label: 'Поток'},
-        {path: '/about', label: 'О нас'},
-        {path: '/realty', label: 'Квартиры'},
-    ];
+    navLinks = [];
 
     constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) {
     }
 
     ngOnInit() {
-        this.auth.currentUser$.subscribe(user => this.user = user);
+        this.auth.currentUser$.subscribe(user => {
+            this.user = user;
+            if (user) {
+                this.navLinks = user ? [{path: '/index', label: 'Главная'},
+                        {path: '/stream', label: 'Поток'},
+                        {path: '/about', label: 'О нас'},
+                        {path: '/realty', label: 'Квартиры'}]
+                    : [{path: '/index', label: 'Главная'},
+                        {path: '/about', label: 'О нас'},
+                        {path: '/realty', label: 'Квартиры'}];
+            }
+        });
     }
 
     logout() {

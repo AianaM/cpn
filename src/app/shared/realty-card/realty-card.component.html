@@ -47,6 +47,11 @@
         <button mat-icon-button>
             <mat-icon>favorite_border</mat-icon>
         </button>
-        <button mat-button>ПОДРОБНЕЕ</button>
+        <div>
+            <button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', realty.id] } }]">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button mat-button>ПОДРОБНЕЕ</button>
+        </div>
     </mat-card-actions>
 </mat-card>

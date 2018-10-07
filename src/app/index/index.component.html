@@ -1,4 +1,8 @@
-<app-realty-filter-form></app-realty-filter-form>
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="24px">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/hNFVFvApc6E?rel=0" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <app-realty-filter-form></app-realty-filter-form>
+</div>
 
 <app-realty-grid [addressGroups]="newBuildings$ | async "></app-realty-grid>
 <app-realty-grid [realtyGroups]="realtyGroups$ | async "></app-realty-grid>
