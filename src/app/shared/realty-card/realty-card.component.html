@@ -1,42 +1,19 @@
 <mat-card>
-    <mat-tab-group mat-card-image *ngIf="realty.mediaObjects.length" headerPosition="below" class="photos">
-        <mat-tab *ngFor="let photo of realty.mediaObjects">
-            <ng-template mat-tab-label>
-                <img [src]="photo.links?.squared_thumbnail_64 | safeResourceUrl" alt="Фото объекта"
-                     style="height: 64px; width: 64px;"
-                >
-            </ng-template>
-            <img (click)="show(photo)"
-                 [src]="photo.links?.squared_thumbnail | safeResourceUrl" alt="Фото объекта">
-        </mat-tab>
-    </mat-tab-group>
-    <img mat-card-image *ngIf="!realty.mediaObjects.length" src="./assets/realty.png"
-         height="50%" alt="Нет фото объекта">
+    <app-media-objects-tabs [mediaObjects]="realty.mediaObjects"></app-media-objects-tabs>
     <mat-card-content>
-        <div>
-            <div>{{realty.address.street}}, {{realty.address.number}}
-                <span *ngIf="realty.address.name">, ({{realty.address.name}})</span></div>
-            <div>{{realty.address.district}}</div>
-        </div>
-
-        <ul>
-            <li> {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}} кв.м. /
+        <p>
+            {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}} кв.м. /
                 <ng-container
                         *ngIf="full && realty.description.balconyArea">{{realty.description.balconyArea}} кв.м.</ng-container>
             </span>
-            </li>
-            <li>{{realty.address.type}}, {{realty.address.year }} г.
-                <span *ngIf="realty.address.newBuilding">{{realty.address.description.quarter }}</span>
-            </li>
-            <li>{{realty.address.developer}}</li>
-            <li>{{realty.floor}}/{{realty.address.floors}} этаж
-                <span *ngIf="realty.address.description.elevator">лифт</span>
-            </li>
-        </ul>
+        </p>
+        <app-address-card [address]="realty.address" [show]="full ? 'flat' : 'tiny'">
+            {{realty.floor}} этаж /
+        </app-address-card>
+        <p>{{features()}}</p>
         <p>
             <b>Цена: {{realty.price || 0 | currency: 'RUB':'symbol':'4.0-0'}}</b>
             <span *ngIf="realty.area"> ({{realty.price/realty.area | currency: 'RUB':'symbol':'4.0-0'}}/м2)</span>
-            <span *ngIf="realty.address.newBuilding && realty.address.description.mortgage"> Ипотека</span>
         </p>
         <p>
             {{realty.updatedAt | date:'short' }} {{status}}
@@ -48,13 +25,11 @@
             <p>Последний раз обновлялся
                 {{realty.updatedUser.teamCard?.firstName || realty.updatedUser.name?.firstName}}
             </p>
-            <p>{{features(true)}}</p>
-            <p>{{features()}}</p>
-            <p>{{realty.address.description.text}}</p>
             <p>{{realty.description.text}}</p>
             <div *ngIf="realty.hiddenInfo as info">
                 <ul>
-                    <li>{{realty.cadastralNumber}}, кв. {{info.flat || 'хз'}}, подъезд {{info.entrance || 'не указан'}}</li>
+                    <li>{{realty.cadastralNumber}}, кв. {{info.flat || 'хз'}}, подъезд {{info.entrance || 'не указан'}}
+                    </li>
                     <li *ngIf="info.maternalCapital">Использовался ли МСК при покупке/гашении ипотеки</li>
                     <li *ngIf="info.shareProperty">Долевая собственность</li>
                     <li *ngIf="info.ownershipLessThan3years">В собственности менне 3х лет</li>

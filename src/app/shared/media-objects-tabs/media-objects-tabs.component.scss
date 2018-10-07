@@ -1,0 +1,24 @@
+.photos {
+  height: 100%;
+}
+
+.photos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:host /deep/ .photos .mat-tab-label {
+  padding: 2px;
+  min-width: 64px;
+  max-height: 64px;
+  overflow: hidden;
+}
+
+:host /deep/ .photos .mat-tab-body-content {
+  overflow: hidden;
+}
+
+:host /deep/ .photos .mat-tab-labels {
+  padding-top: 2px;
+}

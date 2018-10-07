@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Realty} from '../../realty/realty';
+import {Address, Realty} from '../../realty/realty';
 import {combineLatest, Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
@@ -12,6 +12,7 @@ import {AppService} from '../../app.service';
 })
 export class RealtyGridComponent implements OnInit {
     @Input() realtyGroups: { title: string, realty: Realty[] }[];
+    @Input() addressGroups: { title: string, addresses: Address[] }[];
 
     cols$: Observable<number> = combineLatest(
         this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge]),

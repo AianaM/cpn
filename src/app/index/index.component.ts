@@ -9,6 +9,7 @@ import {RealtyService} from '../realty/realty.service';
 export class IndexComponent implements OnInit {
 
     realtyGroups$ = this.realtyService.indexGroups$;
+    newBuildings$ = this.realtyService.newBuildings$;
 
     constructor(private realtyService: RealtyService) {
     }

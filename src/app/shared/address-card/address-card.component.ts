@@ -1,26 +1,24 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Address, Realty} from '../../realty/realty';
-import {Router} from '@angular/router';
+import {Address} from '../../realty/realty';
 
 @Component({
-    selector: 'app-realty-card',
-    templateUrl: './realty-card.component.html',
-    styleUrls: ['./realty-card.component.scss']
+    selector: 'app-address-card',
+    templateUrl: './address-card.component.html',
+    styleUrls: ['./address-card.component.scss']
 })
-export class RealtyCardComponent implements OnInit {
+export class AddressCardComponent implements OnInit {
+    @Input() address: Address;
+    @Input() show: 'flat' | 'tiny' | 'full' = 'tiny';
 
-    @Input() realty: Realty;
-    @Input() full: false;
-
-    constructor(private router: Router) {
+    constructor() {
     }
 
     ngOnInit() {
     }
 
     features() {
-        const feature = this.realty.description.feature;
-        const featuresGroups = Realty.features;
+        const feature = this.address.description.feature;
+        const featuresGroups = Address.features;
         if (!feature || !Object.keys(feature).length) {
             return;
         }
@@ -39,11 +37,4 @@ export class RealtyCardComponent implements OnInit {
         return text;
     }
 
-    get status() {
-        return Realty.statusIcon(this.realty.status);
-    }
-
-    show() {
-        this.router.navigate([{outlets: {side: ['show', this.realty.id]}}]);
-    }
 }

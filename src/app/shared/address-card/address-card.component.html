@@ -1,0 +1,48 @@
+<ng-container [ngSwitch]="show">
+    <div *ngSwitchCase="'tiny'">
+        <ng-container *ngTemplateOutlet="tiny"></ng-container>
+    </div>
+    <div *ngSwitchCase="'flat'">
+        <ng-container *ngTemplateOutlet="flat"></ng-container>
+    </div>
+    <mat-card *ngSwitchDefault>
+        <app-media-objects-tabs [mediaObjects]="address.mediaObjects"></app-media-objects-tabs>
+        <mat-card-content>
+            <ng-container *ngTemplateOutlet="flat"></ng-container>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between end">
+            <button mat-icon-button>
+                <mat-icon>favorite_border</mat-icon>
+            </button>
+            <button mat-button>ПОДРОБНЕЕ</button>
+        </mat-card-actions>
+    </mat-card>
+</ng-container>
+
+
+<ng-template #tiny>
+        <div>{{address.street}}, {{address.number}}
+            <span *ngIf="address.name">, ({{address.name}})</span></div>
+        <div>{{address.district}}</div>
+</ng-template>
+<ng-template #flat>
+    <ng-container *ngTemplateOutlet="tiny"></ng-container>
+    <ul>
+        <li>{{address.type}}, {{address.year }} г.
+            <span *ngIf="address.newBuilding">{{address.description.quarter }}</span>
+        </li>
+        <li>{{address.developer}}</li>
+        <li>
+            <ng-content></ng-content>
+            {{address.floors}} этажей в доме
+            <span *ngIf="address.description.elevator">лифт</span>
+        </li>
+    </ul>
+    <p>
+        <span *ngIf="address.newBuilding && address.description.mortgage.length"> Ипотека</span>
+    </p>
+
+    <p>{{address.description.mortgage.join(', ')}}</p>
+    <p>{{features(true)}}</p>
+    <p>{{address.description.text}}</p>
+</ng-template>

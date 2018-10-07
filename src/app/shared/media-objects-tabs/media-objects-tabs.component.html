@@ -1,0 +1,14 @@
+<mat-tab-group mat-card-image *ngIf="mediaObjects.length" headerPosition="below" class="photos">
+    <mat-tab *ngFor="let photo of mediaObjects">
+        <ng-template mat-tab-label>
+            <img [src]="photo.links?.squared_thumbnail_64 | safeResourceUrl" alt="Фото объекта"
+                 style="height: 64px; width: 64px;"
+            >
+        </ng-template>
+        <img (click)="show(photo)"
+             [src]="photo.links?.squared_thumbnail | safeResourceUrl" alt="Фото объекта">
+    </mat-tab>
+</mat-tab-group>
+
+<img mat-card-image *ngIf="!mediaObjects.length" src="./assets/realty.png"
+     height="100%" alt="Нет фото объекта">

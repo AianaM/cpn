@@ -18,3 +18,24 @@
         </mat-grid-list>
     </ng-container>
 </div>
+
+<div *ngFor="let groups of addressGroups" [class.grid-container]="(cols$ | async) != 1">
+    <ng-container *ngIf="groups.addresses.length">
+        <h1>{{groups.title}}</h1>
+        <mat-grid-list [cols]="(cols$ | async) || 1" rowHeight="1:1.5">
+            <mat-grid-tile *ngFor="let address of groups.addresses" class="grid-tile">
+                <mat-grid-tile-header>
+                    <div fxLayout="column" fxLayoutAlign="center start" fxFlex>
+                        <span *ngIf="!address.name">{{address.street}}, {{address.number}}</span>
+                        <b *ngIf="address.name">"{{address.name}}"</b>
+                        <div>{{address.district}}</div>
+                    </div>
+                    <button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', address.id] } }]">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-grid-tile-header>
+                <app-address-card [address]="address" show="'full'"></app-address-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ng-container>
+</div>

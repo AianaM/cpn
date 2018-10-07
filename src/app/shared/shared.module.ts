@@ -36,6 +36,8 @@ import {RealtyGridComponent} from './realty-grid/realty-grid.component';
 import {RouterModule} from '@angular/router';
 import {MediaObjectHelperComponent} from './media-object-helper/media-object-helper.component';
 import { MediaObjectDialogComponent } from './media-object-dialog/media-object-dialog.component';
+import { MediaObjectsTabsComponent } from './media-objects-tabs/media-objects-tabs.component';
+import { AddressCardComponent } from './address-card/address-card.component';
 
 @NgModule({
     imports: [
@@ -68,7 +70,9 @@ import { MediaObjectDialogComponent } from './media-object-dialog/media-object-d
         IfRoleDirective,
         RealtyGridComponent,
         MediaObjectHelperComponent,
-        MediaObjectDialogComponent
+        MediaObjectDialogComponent,
+        MediaObjectsTabsComponent,
+        AddressCardComponent
     ],
     exports: [
         FlexLayoutModule,
@@ -106,7 +110,9 @@ import { MediaObjectDialogComponent } from './media-object-dialog/media-object-d
         ManagerAutocompleteFormComponent,
         IfRoleDirective,
         RealtyGridComponent,
-        MediaObjectHelperComponent
+        MediaObjectHelperComponent,
+        MediaObjectsTabsComponent,
+        AddressCardComponent
     ],
     entryComponents: [
         MediaObjectDialogComponent

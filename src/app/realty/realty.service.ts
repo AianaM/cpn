@@ -4,7 +4,7 @@ import {AppService} from '../app.service';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, combineLatest, Observable, of, zip} from 'rxjs';
 import {Address, Realty, RealtyFilter} from './realty';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {MediaObject} from '../media-object/media-object';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {AuthService} from '../user/auth.service';
@@ -18,11 +18,7 @@ export class RealtyService {
     myRealty = this.newRealty();
     filter = new BehaviorSubject(new RealtyFilter());
 
-    currentUser$ = this.auth.currentUser$.pipe(
-        filter(user => user !== undefined)
-    );
-
-    readonly realty$ = combineLatest(this.currentUser$, this.filter.asObservable()).pipe(
+    readonly realty$ = combineLatest(this.auth.currentUser$, this.filter.asObservable()).pipe(
         tap(val => console.log(val)),
         switchMap(([user, filters]) => this.http.get(`${this.api}/realties${this.generateSearchURL(filters)}`))
     );
@@ -168,15 +164,16 @@ export class RealtyService {
     }
 
     get newBuildings$() {
-        return this.http.get(`${this.api}/addresses?newBuilding=true`);
+        return this.http.get(`${this.api}/addresses?newBuilding=true&itemsPerPage=5`).pipe(
+            map(value => [{title: 'Новостройки', addresses: value['hydra:member']}])
+        );
     }
 
     get indexGroups$(): Observable<{ title: string, realty: Realty[] }[]> {
-        return combineLatest(this.currentUser$, this.filter.asObservable()).pipe(
-            switchMap(() => zip(
-                this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=10`),
-                this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=10`),
-            )),
+        return zip(
+            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=10`),
+            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=10`),
+        ).pipe(
             map(([first, second]) => {
                 return [
                     {title: 'Квартиры в новостройках', realty: first['hydra:member']},
