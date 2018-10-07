@@ -36,6 +36,10 @@ export class RealtyService {
         return id ? this.http.get(`${this.api}/realties/${id}`) : of(null);
     }
 
+    getAddress(id: string) {
+        return id ? this.http.get(`${this.api}/addresses/${id}`) : of(null);
+    }
+
     private generateSearchURL(filters: RealtyFilter): string {
         let url = '';
         if (!filters) {

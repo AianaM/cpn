@@ -30,11 +30,11 @@
                         <b *ngIf="address.name">"{{address.name}}"</b>
                         <div>{{address.district}}</div>
                     </div>
-                    <button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', address.id] } }]">
-                        <mat-icon>info</mat-icon>
-                    </button>
+                    <!--<button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', address.id] } }]">-->
+                        <!--<mat-icon>info</mat-icon>-->
+                    <!--</button>-->
                 </mat-grid-tile-header>
-                <app-address-card [address]="address" show="'full'"></app-address-card>
+                <app-address-card [address]="address" show="full"></app-address-card>
             </mat-grid-tile>
         </mat-grid-list>
     </ng-container>

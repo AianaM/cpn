@@ -2,9 +2,9 @@
     <app-media-objects-tabs [mediaObjects]="realty.mediaObjects"></app-media-objects-tabs>
     <mat-card-content>
         <p>
-            {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}} кв.м. /
+            {{realty.category}} {{realty.rooms | rooms}} <span class="mutted">{{realty.area}} кв.м.
                 <ng-container
-                        *ngIf="full && realty.description.balconyArea">{{realty.description.balconyArea}} кв.м.</ng-container>
+                        *ngIf="full && realty.description.balconyArea"> / {{realty.description.balconyArea}} кв.м.</ng-container>
             </span>
         </p>
         <app-address-card [address]="realty.address" [show]="full ? 'flat' : 'tiny'">

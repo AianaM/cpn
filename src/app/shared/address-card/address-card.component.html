@@ -1,11 +1,8 @@
-<ng-container [ngSwitch]="show">
-    <div *ngSwitchCase="'tiny'">
-        <ng-container *ngTemplateOutlet="tiny"></ng-container>
-    </div>
+<ng-container [ngSwitch]="show" *ngIf="address">
     <div *ngSwitchCase="'flat'">
         <ng-container *ngTemplateOutlet="flat"></ng-container>
     </div>
-    <mat-card *ngSwitchDefault>
+    <mat-card *ngSwitchCase="'full'">
         <app-media-objects-tabs [mediaObjects]="address.mediaObjects"></app-media-objects-tabs>
         <mat-card-content>
             <ng-container *ngTemplateOutlet="flat"></ng-container>
@@ -14,16 +11,19 @@
             <button mat-icon-button>
                 <mat-icon>favorite_border</mat-icon>
             </button>
-            <button mat-button>ПОДРОБНЕЕ</button>
+            <button mat-button [routerLink]="['/realty/a', address.id]">ПОДРОБНЕЕ</button>
         </mat-card-actions>
     </mat-card>
+    <div *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="tiny"></ng-container>
+    </div>
 </ng-container>
 
 
 <ng-template #tiny>
-        <div>{{address.street}}, {{address.number}}
-            <span *ngIf="address.name">, ({{address.name}})</span></div>
-        <div>{{address.district}}</div>
+    <div>{{address.street}}, {{address.number}}
+        <span *ngIf="address.name">, ({{address.name}})</span></div>
+    <div>{{address.district}}</div>
 </ng-template>
 <ng-template #flat>
     <ng-container *ngTemplateOutlet="tiny"></ng-container>
