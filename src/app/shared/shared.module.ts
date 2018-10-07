@@ -15,7 +15,14 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSelectModule,
-    MatCheckboxModule, MatTabsModule, MatGridListModule, MatExpansionModule, MatAutocompleteModule, MatDialogModule
+    MatCheckboxModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatExpansionModule,
+    MatAutocompleteModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
@@ -96,6 +103,8 @@ import { AddressCardComponent } from './address-card/address-card.component';
         MatTabsModule,
         MatGridListModule,
         MatExpansionModule,
+        MatTableModule,
+        MatSortModule,
         SafeUrlPipe,
         PhoneFormComponent,
         TeamCardComponent,

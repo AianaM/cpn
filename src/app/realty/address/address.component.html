@@ -1,3 +1,38 @@
 <section style="max-width: 900px; margin: auto;">
-    <app-address-card [address]="address$ | async" show="full"></app-address-card>
+    <app-address-card [address]="address" show="full"></app-address-card>
+    <h1>Квартиры в этом доме</h1>
+    <table mat-table [dataSource]="realty" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="area">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Площадь</th>
+    <td mat-cell *matCellDef="let element"> {{element.area}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rooms">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Комнат</th>
+    <td mat-cell *matCellDef="let element"> {{element.rooms}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="floor">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Этаж</th>
+    <td mat-cell *matCellDef="let element"> {{element.floor}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Статус</th>
+    <td mat-cell *matCellDef="let element"> {{element.status}}
+        <button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', element.id] } }]">
+            <mat-icon>info</mat-icon>
+        </button>
+    </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Цена</th>
+    <td mat-cell *matCellDef="let element"> {{element.price}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </section>
