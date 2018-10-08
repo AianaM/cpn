@@ -1,8 +1,12 @@
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="24px">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/hNFVFvApc6E?rel=0" frameborder="0"
+<div fxLayout="row wrap" fxLayoutAlign="space-around center" style="margin: 24px 0;">
+        <iframe width="480" height="270" src="https://www.youtube.com/embed/hNFVFvApc6E?rel=0" frameborder="0"
                 allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <app-realty-filter-form></app-realty-filter-form>
+        <iframe width="480" height="270" src="https://www.youtube.com/embed/ONwtdTnIshw?rel=0" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe width="480" height="270" src="https://www.youtube.com/embed/gT1BkH76bA8?rel=0" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+<app-realty-filter-form></app-realty-filter-form>
 
 <app-realty-grid [addressGroups]="newBuildings$ | async "></app-realty-grid>
 <app-realty-grid [realtyGroups]="realtyGroups$ | async "></app-realty-grid>

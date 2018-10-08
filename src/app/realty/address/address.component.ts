@@ -3,7 +3,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {RealtyService} from '../realty.service';
 import {switchMap} from 'rxjs/operators';
 import {MatSort, MatTableDataSource} from '@angular/material';
-import {Address} from '../realty';
+import {Address, Realty} from '../realty';
 
 @Component({
     selector: 'app-address',
@@ -14,7 +14,7 @@ export class AddressComponent implements OnInit {
 
     address: Address;
     displayedColumns: string[] = ['area', 'rooms', 'floor', 'price', 'status'];
-    realty: MatTableDataSource = new MatTableDataSource([]);
+    realty: MatTableDataSource<Realty> = new MatTableDataSource([]);
 
     @ViewChild(MatSort) sort: MatSort;
 

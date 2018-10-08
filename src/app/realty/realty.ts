@@ -41,6 +41,7 @@ export class Address {
         text: null
     };
     mediaObjects: MediaObject[] = [];
+    realty?: Realty[];
 
     static get buildingTypes() {
         return ['112 серия', 'Блочный', 'Дерев. б/у', 'Дерев. ч/б',
