@@ -1,0 +1,25 @@
+<mat-card *ngFor="let item of feed$ | async" style="margin-bottom: 24px;">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon>
+                <img [src]="item.user.profile_picture | safeResourceUrl" width="43px"
+                     style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0; object-fit: cover;">
+            </mat-icon>
+        </div>
+        <mat-card-title>{{item.user.full_name}}</mat-card-title>
+        <mat-card-subtitle style="margin-top: -16px;">@{{item.user.username}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="item.images.standard_resolution.url | safeResourceUrl" alt="new photo">
+    <mat-card-content>
+        <p>
+            {{item.caption.text}}
+        </p>
+        <p>{{getDate(item.created_time) | date:'short'}}</p>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row wrap" fxLayoutAlign="start center">
+        <span fxFlexOffset="20px">{{item.likes.count}}</span> <mat-icon>favorite_border</mat-icon>
+        <span fxFlexOffset="5px">{{item.comments.count}}</span> <mat-icon>chat_bubble_outline</mat-icon>
+        <span fxFlex></span>
+        <a mat-button [href]="item.link" target="_blank">ПОДРОБНЕЕ</a>
+    </mat-card-actions>
+</mat-card>

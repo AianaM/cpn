@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {IndexComponent} from './index/index.component';
 import {AboutComponent} from './about/about.component';
 import {ManagerGuard} from './user/manager.guard';
+import {InstaFeedComponent} from './insta-feed/insta-feed.component';
 
 const routes: Routes = [
     {path: '', component: IndexComponent},

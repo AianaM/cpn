@@ -1,6 +1,6 @@
 <mat-tab-group backgroundColor="accent" class="side" [selectedIndex]="selected"
                (selectedIndexChange)="selected = $event">
-    <mat-tab label="Новости"> ТУТ БУДУТ НОВОСТИ ИЗ ИНСТАГРАМА</mat-tab>
+    <mat-tab label="Новости"><app-instagram-feed></app-instagram-feed></mat-tab>
     <mat-tab label="Просмотр" *ngIf="(realty$ | async) as realty">
         <app-realty-card [realty]="realty" [full]="true"></app-realty-card>
         <mat-expansion-panel>

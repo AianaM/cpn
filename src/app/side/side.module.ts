@@ -9,6 +9,7 @@ import {AddressFormComponent} from './address-form/address-form.component';
 import {DetailsFormComponent} from './details-form/details-form.component';
 import {HiddenInfoFormComponent} from './hidden-info-form/hidden-info-form.component';
 import {MediaObjectFormComponent} from './media-object-form/media-object-form.component';
+import {InstagramFeedComponent} from './instagram-feed/instagram-feed.component';
 
 @NgModule({
     imports: [
@@ -16,7 +17,7 @@ import {MediaObjectFormComponent} from './media-object-form/media-object-form.co
         SideRoutingModule, SharedModule
     ],
     declarations: [IndexComponent, RealtyFormComponent, AddressFormComponent,
-        DetailsFormComponent, HiddenInfoFormComponent, MediaObjectFormComponent]
+        DetailsFormComponent, HiddenInfoFormComponent, MediaObjectFormComponent, InstagramFeedComponent]
 })
 export class SideModule {
 }

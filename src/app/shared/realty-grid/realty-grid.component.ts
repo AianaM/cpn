@@ -22,11 +22,6 @@ export class RealtyGridComponent implements OnInit {
             let cols = 1;
             for (const value of Object.values(breakpoints.breakpoints)) {
                 if (value) {
-                    if (this.breakpointObserver.isMatched('(min-width: 1600px)')) {
-                        // return side ? 4 : 5;
-                        console.log(5);
-                    }
-                    console.log(Object.values(breakpoints.breakpoints), side && cols > 1 ? cols - 1 : cols);
                     return side && cols > 1 ? cols - 1 : cols;
                 }
                 cols++;
