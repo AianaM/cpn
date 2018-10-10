@@ -1,14 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {MediaObjectService} from '../../media-object/media-object.service';
 import {MediaObjectFilter} from '../../media-object/media-object';
 import {map} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-media-object-helper',
     templateUrl: './media-object-helper.component.html',
     styleUrls: ['./media-object-helper.component.scss']
 })
-export class MediaObjectHelperComponent implements OnInit, OnChanges {
+export class MediaObjectHelperComponent implements OnInit, OnChanges, OnDestroy {
     @Input() tags: string;
     @Output() mediaObject = new EventEmitter();
 
@@ -18,16 +19,26 @@ export class MediaObjectHelperComponent implements OnInit, OnChanges {
         map(value => value['hydra:member'])
     );
 
+    media$: Subscription;
+
+    showHelper = false;
+
     constructor(private mediaObjectService: MediaObjectService) {
     }
 
     ngOnInit() {
-        this.mediaObjectService.filter.asObservable().subscribe(value => this.tagFilter = value.tag);
+        this.media$ = this.mediaObjectService.filter.asObservable().subscribe(value => this.tagFilter = value.tag);
     }
 
     ngOnChanges() {
-        this.tagFilter = this.tags;
-        this.filter();
+        setTimeout(() => {
+            this.tagFilter = this.tags;
+            this.filter();
+        });
+    }
+
+    ngOnDestroy() {
+        this.media$.unsubscribe();
     }
 
     filter() {

@@ -5,8 +5,8 @@
         <mat-grid-tile *ngFor="let realty of realty$ | async" class="grid-tile">
             <mat-grid-tile-header>
                 <div fxLayout="column" fxLayoutAlign="center start" fxFlex>
-                    <span>{{realty.address.street}}, {{realty.address.number}}</span>
-                    <span *ngIf="realty.address.name">, ({{realty.address.name}})</span>
+                    <span>{{realty.address.street}}, {{realty.address.number}}
+                    <ng-container *ngIf="realty.address.name">, ({{realty.address.name}})</ng-container></span>
                     <div>{{realty.address.district}}</div>
                 </div>
                 <button mat-icon-button [routerLink]="['/', { outlets: { side: ['show', realty.id] } }]">

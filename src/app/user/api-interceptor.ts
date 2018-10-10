@@ -17,7 +17,8 @@ export class ApiInterceptor implements HttpInterceptor {
             filter(token => token !== undefined || req.url.includes('login_check') || req.url.includes('token/refresh')),
             first(),
             switchMap(token => {
-                if (token && !req.url.includes('login_check') && !req.url.includes('token/refresh')) {
+                if (token && !req.url.includes('login_check') && !req.url.includes('token/refresh')
+                && !req.url.match(/api.instagram.com/gi)) {
                     req = req.clone({
                         setHeaders: {
                             Authorization: `Bearer ${token}`

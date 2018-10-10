@@ -28,7 +28,8 @@ export class RealtyService {
 
     newRealty() {
         const realty = new Realty();
-        this.auth.currentUser$.subscribe(user => realty.manager = user);
+        this.auth.currentUser$.subscribe(user => realty.manager = user && user.roles.includes('ROLE_MANAGER')
+        && user.roles.includes('ROLE_TEAMMATE') && user.teamCard ? user : null);
         return realty;
     }
 
@@ -168,15 +169,15 @@ export class RealtyService {
     }
 
     get newBuildings$() {
-        return this.http.get(`${this.api}/addresses?newBuilding=true&itemsPerPage=5`).pipe(
+        return this.http.get(`${this.api}/addresses?newBuilding=true&itemsPerPage=4`).pipe(
             map(value => [{title: 'Новостройки', addresses: value['hydra:member']}])
         );
     }
 
     get indexGroups$(): Observable<{ title: string, realty: Realty[] }[]> {
         return zip(
-            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=10`),
-            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=10`),
+            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=true&itemsPerPage=8`),
+            this.http.get(`${this.api}/realties?category=Квартира&address.newBuilding=false&itemsPerPage=8`),
         ).pipe(
             map(([first, second]) => {
                 return [

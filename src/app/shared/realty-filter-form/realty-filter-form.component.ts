@@ -3,7 +3,8 @@ import {RealtyService} from '../../realty/realty.service';
 import {Address, BANKS, Realty, RealtyFilter} from '../../realty/realty';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-realty-filter-form',
@@ -26,11 +27,10 @@ export class RealtyFilterFormComponent implements OnInit {
 
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
         .pipe(
-            tap(result => console.log(result)),
             map(result => result.matches)
         );
 
-    constructor(private realtyService: RealtyService, private breakpointObserver: BreakpointObserver) {
+    constructor(private realtyService: RealtyService, private breakpointObserver: BreakpointObserver, private router: Router) {
     }
 
     ngOnInit() {
@@ -48,5 +48,6 @@ export class RealtyFilterFormComponent implements OnInit {
 
     onSubmit() {
         this.realtyService.filter.next(this.filters);
+        this.router.navigate(['/realty']);
     }
 }

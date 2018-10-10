@@ -1,16 +1,22 @@
-<div>
-    <p>Добавить фото из базы</p>
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <mat-form-field fxFlex>
-            <input matInput placeholder="Идентификатор" [(ngModel)]="tagFilter" name="tagFilter">
-        </mat-form-field>
-        <button mat-icon-button (click)="filter()">
-            <mat-icon>filter_list</mat-icon>
+<button mat-flat-button *ngIf="!showHelper; else helper" (click)="showHelper = !showHelper">Поиск фото в базе</button>
+
+<ng-template #helper>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-form-field fxFlex>
+                <input matInput placeholder="По тегу" [(ngModel)]="tagFilter" name="tagFilter">
+            </mat-form-field>
+            <button mat-icon-button (click)="filter()">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <button mat-icon-button (click)="showHelper = false">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div fxLayout="row wrap" class="media-container" *ngIf="filteredMedia$ | async as filteredMedia">
+        <button mat-button *ngFor="let media of filteredMedia" (click)="show(media)">
+            <img [src]="media.links.squared_thumbnail_64 | safeResourceUrl" width="64px" height="64px">
         </button>
     </div>
-</div>
-<div fxLayout="row wrap" class="media-container" *ngIf="filteredMedia$ | async as filteredMedia">
-    <button mat-button *ngFor="let media of filteredMedia" (click)="show(media)">
-        <img [src]="media.links.squared_thumbnail_64 | safeResourceUrl" width="64px" height="64px">
-    </button>
-</div>
+</ng-template>

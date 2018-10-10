@@ -33,7 +33,7 @@
                     <li *ngIf="info.maternalCapital">Использовался ли МСК при покупке/гашении ипотеки</li>
                     <li *ngIf="info.shareProperty">Долевая собственность</li>
                     <li *ngIf="info.ownershipLessThan3years">В собственности менне 3х лет</li>
-                    <li>{{info.note}}</li>
+                    <li><p><b>{{info.note}}</b></p></li>
                 </ul>
             </div>
             <div *ngIf="realty.owner">

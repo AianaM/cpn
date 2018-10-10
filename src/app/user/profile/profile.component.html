@@ -3,7 +3,7 @@
         <mat-card-header>
             <div mat-card-avatar>
                 <mat-icon>
-                    <img [src]="user.photo.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
+                    <img [src]="user.photo?.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
                          style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0;">
                 </mat-icon>
             </div>
@@ -22,7 +22,7 @@
                         </div>
                         <button mat-icon-button type="button" (click)="avatarUpl.click()">
                             <mat-icon>
-                                <img [src]="editProfile.photo.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
+                                <img [src]="editProfile.photo?.links.squared_thumbnail_64 | safeResourceUrl" width="43px"
                                      style="height: 40px; width: 40px; border-radius: 50%; flex-shrink: 0;">
                             </mat-icon>
                         </button>

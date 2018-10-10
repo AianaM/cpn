@@ -1,23 +1,29 @@
 <mat-tab-group backgroundColor="accent" class="side" [selectedIndex]="selected"
                (selectedIndexChange)="selected = $event">
-    <mat-tab label="Новости"><app-instagram-feed></app-instagram-feed></mat-tab>
-    <mat-tab label="Просмотр" *ngIf="(realty$ | async) as realty">
-        <app-realty-card [realty]="realty" [full]="true"></app-realty-card>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Изменить
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ng-template matExpansionPanelContent *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
-                <app-realty-form [realty]="realty"></app-realty-form>
-            </ng-template>
-        </mat-expansion-panel>
-
-        <span></span>
+    <mat-tab label="Новости">
+        <app-instagram-feed></app-instagram-feed>
     </mat-tab>
-    <mat-tab label="NEW" *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
+    <ng-container *ngIf="(realty$ | async) as realty">
+        <mat-tab label="Просмотр">
+            <app-realty-card [realty]="realty" [full]="true"></app-realty-card>
+        </mat-tab>
+        <mat-tab *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
+            <ng-template mat-tab-label>
+                <mat-icon>edit</mat-icon>
+            </ng-template>
+            <ng-template matTabContent>
+                <mat-card>
+                    <mat-card-content>
+                        <app-realty-form [realty]="realty"></app-realty-form>
+                    </mat-card-content>
+                </mat-card>
+            </ng-template>
+        </mat-tab>
+    </ng-container>
+    <mat-tab *appIfRole="['ROLE_ADMIN', 'ROLE_MANAGER']">
+        <ng-template mat-tab-label>
+            <mat-icon>add</mat-icon>
+        </ng-template>
         <ng-template matTabContent>
             <mat-card>
                 <mat-card-content>

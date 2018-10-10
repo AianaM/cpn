@@ -32,13 +32,13 @@ export class NavComponent implements OnInit {
                     {path: '/stream', label: 'Поток'},
                     {path: '/about', label: 'О нас'},
                     {path: '/realty', label: 'Квартиры'},
-                    {path: '/news', label: 'INSTA'}
+                    {path: [{ outlets: { side: 'show' } }], label: 'Новости'}
                 ]
                 : [
                     {path: '/index', label: 'Главная'},
                     {path: '/about', label: 'О нас'},
                     {path: '/realty', label: 'Квартиры'},
-                    {path: '/news', label: 'INSTA'}
+                    {path: [{ outlets: { side: 'show' } }], label: 'Новости'}
                 ];
         });
     }

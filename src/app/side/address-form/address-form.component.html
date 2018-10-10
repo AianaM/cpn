@@ -49,6 +49,7 @@
 
         <mat-form-field>
             <mat-select placeholder="Застрощик" [(ngModel)]="address.developer" name="developer">
+                <mat-option>Неизвестно</mat-option>
                 <mat-option *ngFor="let item of developers" [value]="item">
                     {{item}}
                 </mat-option>
